@@ -1,0 +1,5267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vannut Prime | Imobiliária de Elite & Inteligência Imobiliária</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+
+
+    <style>
+
+        :root {
+            --accent-red: #ef233c;
+            --accent-red-glow: rgba(239, 35, 60, 0.5);
+        }
+
+
+        /* =========================
+           ANIMAÇÕES
+        ========================= */
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @keyframes border-spin {
+            from {
+                --gradient-angle: 0deg;
+            }
+
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+
+        @keyframes animStar {
+            from {
+                transform: translateY(0px);
+            }
+
+            to {
+                transform: translateY(-2000px);
+            }
+        }
+
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+
+        @keyframes success-pop {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            70% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        @property --gradient-angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+
+        .animate-fade-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+
+        .modal-animation {
+            animation: modal-in 0.3s ease-out forwards;
+        }
+
+
+        .success-animation {
+            animation: success-pop 0.4s ease-out forwards;
+        }
+
+
+        .font-manrope {
+            font-family: 'Manrope', sans-serif;
+        }
+
+
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        /* =========================
+           BOTÃO SHINY
+        ========================= */
+
+        .shiny-cta {
+            --gradient-angle: 0deg;
+
+            position: relative;
+            overflow: hidden;
+
+            border-radius: 9999px;
+
+            padding: 1rem 2.5rem;
+
+            background:
+                linear-gradient(#000000, #000000) padding-box,
+                conic-gradient(
+                    from var(--gradient-angle),
+                    transparent 0%,
+                    #ef233c 5%,
+                    #ef233c 15%,
+                    #ef233c 30%,
+                    transparent 40%,
+                    transparent 100%
+                ) border-box;
+
+            border: 2px solid transparent;
+
+            cursor: pointer;
+
+            isolation: isolate;
+
+            animation: border-spin 2.5s linear infinite;
+        }
+
+
+        .shiny-cta::before {
+            content: '';
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    white 0.5px,
+                    transparent 0
+                );
+
+            background-size: 4px 4px;
+
+            opacity: 0.1;
+
+            z-index: 0;
+        }
+
+
+        /* =========================
+           ESTRELAS
+        ========================= */
+
+        .stars-1 {
+            box-shadow:
+                234px 124px #fff,
+                654px 345px #fff,
+                876px 12px #fff,
+                1200px 800px #fff,
+                400px 1500px #fff,
+                1800px 200px #fff,
+                100px 1000px #fff,
+                900px 1900px #fff,
+                500px 600px #fff,
+                1400px 100px #fff,
+                300px 400px #fff,
+                1600px 1200px #fff;
+        }
+
+
+        .stars-2 {
+            box-shadow:
+                123px 456px #fff,
+                789px 234px #fff,
+                456px 890px #fff,
+                1100px 300px #fff,
+                200px 1200px #fff,
+                1500px 500px #fff,
+                600px 1700px #fff,
+                1300px 900px #fff;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .gradient-blur {
+            position: fixed;
+
+            z-index: 40;
+
+            inset: 0 0 auto 0;
+
+            height: 120px;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,0.8),
+                    transparent
+                );
+
+            backdrop-filter: blur(8px);
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+        }
+
+
+        /* =========================
+           SELEÇÃO
+        ========================= */
+
+        .selection-red::selection {
+            background: #ef233c;
+            color: white;
+        }
+
+
+        /* =========================
+           TEXTO
+        ========================= */
+
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+
+            color: transparent;
+        }
+
+
+        /* =========================
+           SCROLLBAR
+        ========================= */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 20px;
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ef233c;
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        #bookingModal {
+            display: none;
+        }
+
+
+        #bookingModal.active {
+            display: flex;
+        }
+
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           INPUTS DO AGENDAMENTO
+        ========================= */
+
+        .booking-input {
+            width: 100%;
+
+            background: rgba(255,255,255,0.05);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            border-radius: 12px;
+
+            padding: 13px 15px;
+
+            color: white;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: all 0.2s ease;
+        }
+
+
+        .booking-input:focus {
+            border-color: #ef233c;
+
+            box-shadow:
+                0 0 0 3px rgba(239,35,60,0.08);
+        }
+
+
+        .booking-input::placeholder {
+            color: #71717a;
+        }
+
+
+        .booking-input option {
+            background: #111;
+            color: white;
+        }
+
+
+        /* =========================
+           HORÁRIOS
+        ========================= */
+
+        .time-button {
+            padding: 10px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            background: rgba(255,255,255,0.03);
+
+            color: #d4d4d8;
+
+            font-size: 13px;
+
+            transition: all 0.2s ease;
+
+            cursor: pointer;
+        }
+
+
+        .time-button:hover {
+            border-color: #ef233c;
+
+            color: white;
+
+            background: rgba(239,35,60,0.08);
+        }
+
+
+        .time-button.selected {
+            background: #ef233c;
+
+            border-color: #ef233c;
+
+            color: white;
+
+            box-shadow:
+                0 5px 20px rgba(239,35,60,0.2);
+        }
+
+
+        /* =========================
+           FUNDO DO MODAL
+        ========================= */
+
+        .modal-backdrop {
+            background:
+                rgba(0,0,0,0.82);
+
+            backdrop-filter: blur(10px);
+        }
+
+    </style>
+
+</head>
+
+
+<body class="selection-red">
+
+
+<div class="min-h-screen bg-black text-white font-inter relative overflow-x-hidden">
+
+
+    <!-- =========================================================
+         BACKGROUND GLOBAL
+    ========================================================== -->
+
+    <div class="fixed inset-0 z-0 pointer-events-none">
+
+        <div class="absolute inset-0 bg-gradient-to-b from-[#1a0505] to-black"></div>
+
+        <div
+            class="absolute top-0 left-0 w-[1px] h-[1px] bg-transparent stars-1 animate-[animStar_50s_linear_infinite]"
+        ></div>
+
+        <div
+            class="absolute top-0 left-0 w-[2px] h-[2px] bg-transparent stars-2 animate-[animStar_80s_linear_infinite]"
+        ></div>
+
+        <div
+            class="absolute top-1/2 left-1/2
+                   -translate-x-1/2
+                   -translate-y-1/2
+                   w-[800px]
+                   h-[800px]
+                   bg-red-600/5
+                   rounded-full
+                   blur-[120px]"
+        ></div>
+
+        <div
+            class="absolute inset-0
+                   bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)]
+                   bg-[size:40px_40px]
+                   [mask-image:radial-gradient(circle_at_center,black_40%,transparent_80%)]"
+        ></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOP BLUR
+    ========================================================== -->
+
+    <div class="gradient-blur"></div>
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header class="fixed top-0 left-0 w-full z-50 pt-6 px-4">
+
+        <nav
+            class="max-w-6xl mx-auto
+                   flex items-center
+                   justify-between
+                   bg-black/60
+                   backdrop-blur-xl
+                   border border-white/10
+                   rounded-full
+                   px-6 py-3
+                   shadow-2xl"
+        >
+
+            <div class="flex items-center gap-2">
+
+                <div
+                    class="w-5 h-5
+                           bg-[#ef233c]
+                           rounded-sm
+                           rotate-45"
+                ></div>
+
+                <span
+                    class="text-lg
+                           font-bold
+                           font-manrope
+                           tracking-tight"
+                >
+                    Vannut Prime
+                </span>
+
+            </div>
+
+
+            <div class="hidden md:flex items-center gap-8">
+
+                <a
+                    href="#portfolio"
+                    class="text-sm
+                           font-medium
+                           text-zinc-400
+                           hover:text-white
+                           transition-colors"
+                >
+                    Buscar Imóveis
+                </a>
+
+                <a
+                    href="#sobre"
+                    class="text-sm
+                           font-medium
+                           text-zinc-400
+                           hover:text-white
+                           transition-colors"
+                >
+                    Sobre
+                </a>
+
+                <a
+                    href="#diferenciais"
+                    class="text-sm
+                           font-medium
+                           text-zinc-400
+                           hover:text-white
+                           transition-colors"
+                >
+                    Diferenciais
+                </a>
+
+                <a
+                    href="#contato"
+                    class="text-sm
+                           font-medium
+                           text-zinc-400
+                           hover:text-white
+                           transition-colors"
+                >
+                    Contato
+                </a>
+
+            </div>
+
+
+            <div class="flex items-center gap-4">
+
+                <a
+                    href="https://wa.me/5561999999999"
+                    target="_blank"
+                    class="hidden sm:flex
+                           items-center gap-2
+                           text-xs
+                           font-medium
+                           text-zinc-300
+                           hover:text-white"
+                >
+
+                    <iconify-icon
+                        icon="lucide:phone"
+                        class="text-[#ef233c] w-4 h-4"
+                    ></iconify-icon>
+
+                    (61) 9999-9999
+
+                </a>
+
+
+                <button
+                    onclick="openBookingModal()"
+                    class="group
+                           relative
+                           inline-flex
+                           items-center
+                           justify-center
+                           overflow-hidden
+                           rounded-full
+                           bg-emerald-600
+                           px-6 py-2
+                           transition-transform
+                           active:scale-95
+                           text-white"
+                >
+
+                    <span
+                        class="relative z-10
+                               flex items-center gap-2
+                               text-xs
+                               font-bold
+                               uppercase
+                               tracking-wider"
+                    >
+                        Agendar Visita
+                    </span>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="relative z-10">
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section
+            class="min-h-screen
+                   flex flex-col
+                   items-center
+                   justify-center
+                   pt-32
+                   pb-20
+                   px-6
+                   relative"
+        >
+
+            <div class="text-center max-w-5xl mx-auto">
+
+
+                <div
+                    class="inline-flex
+                           items-center gap-2
+                           px-4 py-1.5
+                           rounded-full
+                           bg-white/5
+                           border border-white/10
+                           backdrop-blur-md
+                           mb-8
+                           animate-fade-up"
+                    style="animation-delay:0.1s;"
+                >
+
+                    <span class="relative flex h-2 w-2">
+
+                        <span
+                            class="animate-ping
+                                   absolute
+                                   inline-flex
+                                   h-full w-full
+                                   rounded-full
+                                   bg-red-400
+                                   opacity-75"
+                        ></span>
+
+                        <span
+                            class="relative
+                                   inline-flex
+                                   rounded-full
+                                   h-2 w-2
+                                   bg-[#ef233c]"
+                        ></span>
+
+                    </span>
+
+
+                    <span
+                        class="text-xs
+                               font-medium
+                               text-red-100/90
+                               tracking-wide
+                               font-manrope"
+                    >
+                        Líder em Imóveis de Alto Padrão em Águas Lindas
+                    </span>
+
+                </div>
+
+
+                <h1
+                    class="text-5xl
+                           md:text-8xl
+                           font-semibold
+                           tracking-tighter
+                           font-manrope
+                           leading-[1.1]
+                           mb-6
+                           animate-fade-up"
+                    style="animation-delay:0.2s;"
+                >
+
+                    <span
+                        class="block
+                               text-transparent
+                               bg-clip-text
+                               bg-gradient-to-b
+                               from-white
+                               via-white
+                               to-white/40"
+                    >
+                        Encontre Seu Imóvel
+                    </span>
+
+
+                    <span
+                        class="block
+                               text-transparent
+                               bg-clip-text
+                               bg-gradient-to-b
+                               from-white
+                               via-white
+                               to-white/40"
+                    >
+
+                        dos
+
+                        <span
+                            class="text-[#ef233c]
+                                   inline-block
+                                   relative"
+                        >
+
+                            Sonhos
+
+                            <svg
+                                class="absolute
+                                       w-full
+                                       h-3
+                                       -bottom-2
+                                       left-0
+                                       text-[#ef233c]
+                                       opacity-60"
+                                viewBox="0 0 100 10"
+                                preserveAspectRatio="none"
+                            >
+
+                                <path
+                                    d="M0 5 Q 50 10 100 5"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                />
+
+                            </svg>
+
+                        </span>
+
+                    </span>
+
+                </h1>
+
+
+                <p
+                    class="text-xl
+                           md:text-2xl
+                           text-zinc-400
+                           max-w-2xl
+                           mx-auto
+                           mb-10
+                           leading-relaxed
+                           animate-fade-up"
+                    style="animation-delay:0.3s;"
+                >
+                    Casas, apartamentos e comerciais exclusivos com a segurança e o atendimento que você merece.
+                </p>
+
+
+                <!-- =================================================
+                     BUSCA
+                ================================================== -->
+
+                <div
+                    class="max-w-4xl
+                           mx-auto
+                           bg-zinc-900/80
+                           border border-white/10
+                           backdrop-blur-xl
+                           p-4 md:p-6
+                           rounded-2xl
+                           shadow-2xl
+                           mb-12
+                           animate-fade-up"
+                    style="animation-delay:0.35s;"
+                >
+
+                    <div
+                        class="grid
+                               grid-cols-1
+                               md:grid-cols-4
+                               gap-4
+                               text-left"
+                    >
+
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-[10px]
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-1"
+                            >
+                                Tipo de Imóvel
+                            </label>
+
+                            <select
+                                class="w-full
+                                       bg-black/50
+                                       border border-white/10
+                                       rounded-lg
+                                       px-3 py-2.5
+                                       text-sm
+                                       text-white
+                                       focus:outline-none
+                                       focus:border-[#ef233c]"
+                            >
+
+                                <option>Casa</option>
+                                <option>Apartamento</option>
+                                <option>Comercial</option>
+                                <option>Terreno</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-[10px]
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-1"
+                            >
+                                Faixa de Preço
+                            </label>
+
+                            <select
+                                class="w-full
+                                       bg-black/50
+                                       border border-white/10
+                                       rounded-lg
+                                       px-3 py-2.5
+                                       text-sm
+                                       text-white
+                                       focus:outline-none
+                                       focus:border-[#ef233c]"
+                            >
+
+                                <option>Até R$ 300.000</option>
+                                <option>R$ 300k - R$ 700k</option>
+                                <option>R$ 700k - R$ 1.5M</option>
+                                <option>Acima de R$ 1.5M</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-[10px]
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-1"
+                            >
+                                Quartos
+                            </label>
+
+                            <select
+                                class="w-full
+                                       bg-black/50
+                                       border border-white/10
+                                       rounded-lg
+                                       px-3 py-2.5
+                                       text-sm
+                                       text-white
+                                       focus:outline-none
+                                       focus:border-[#ef233c]"
+                            >
+
+                                <option>Qualquer</option>
+                                <option>1+ Quartos</option>
+                                <option>2+ Quartos</option>
+                                <option>3+ Quartos</option>
+                                <option>4+ Quartos</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="flex items-end">
+
+                            <a
+                                href="#portfolio"
+                                class="w-full
+                                       bg-[#ef233c]
+                                       hover:bg-red-700
+                                       text-white
+                                       font-bold
+                                       rounded-lg
+                                       py-2.5
+                                       text-sm
+                                       text-center
+                                       uppercase
+                                       tracking-wider
+                                       transition-all
+                                       flex
+                                       items-center
+                                       justify-center
+                                       gap-2"
+                            >
+
+                                <iconify-icon icon="lucide:search"></iconify-icon>
+
+                                Explorar
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="flex
+                           flex-col
+                           md:flex-row
+                           items-center
+                           justify-center
+                           gap-6
+                           animate-fade-up"
+                    style="animation-delay:0.4s;"
+                >
+
+                    <a
+                        href="#portfolio"
+                        class="shiny-cta group"
+                    >
+
+                        <span
+                            class="relative z-10
+                                   flex
+                                   items-center
+                                   gap-2
+                                   text-white
+                                   font-medium"
+                        >
+
+                            Explorar Propriedades
+
+                            <iconify-icon
+                                icon="lucide:arrow-right"
+                                class="transition-transform
+                                       group-hover:translate-x-1"
+                            ></iconify-icon>
+
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ESTATÍSTICAS
+            ================================================== -->
+
+            <div
+                class="w-full
+                       mt-24
+                       border-y border-white/5
+                       bg-white/[0.02]
+                       backdrop-blur-sm
+                       py-10"
+            >
+
+                <div
+                    class="max-w-6xl
+                           mx-auto
+                           px-6
+                           grid
+                           grid-cols-2
+                           md:grid-cols-4
+                           gap-8
+                           text-center"
+                >
+
+                    <div>
+
+                        <div
+                            class="text-3xl
+                                   md:text-4xl
+                                   font-extrabold
+                                   font-manrope
+                                   text-white
+                                   mb-1"
+                        >
+                            250+
+                        </div>
+
+                        <div
+                            class="text-xs
+                                   uppercase
+                                   tracking-widest
+                                   text-zinc-500"
+                        >
+                            Imóveis Vendidos
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="text-3xl
+                                   md:text-4xl
+                                   font-extrabold
+                                   font-manrope
+                                   text-white
+                                   mb-1"
+                        >
+                            5.000+
+                        </div>
+
+                        <div
+                            class="text-xs
+                                   uppercase
+                                   tracking-widest
+                                   text-zinc-500"
+                        >
+                            Clientes Satisfeitos
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="text-3xl
+                                   md:text-4xl
+                                   font-extrabold
+                                   font-manrope
+                                   text-white
+                                   mb-1"
+                        >
+                            15 Anos
+                        </div>
+
+                        <div
+                            class="text-xs
+                                   uppercase
+                                   tracking-widest
+                                   text-zinc-500"
+                        >
+                            No Mercado
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="text-3xl
+                                   md:text-4xl
+                                   font-extrabold
+                                   font-manrope
+                                   text-[#ef233c]
+                                   mb-1"
+                        >
+                            5.0 ⭐
+                        </div>
+
+                        <div
+                            class="text-xs
+                                   uppercase
+                                   tracking-widest
+                                   text-zinc-500"
+                        >
+                            Avaliação Google
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DESTAQUES
+        ====================================================== -->
+
+        <section
+            class="py-24
+                   px-6
+                   bg-zinc-950/60
+                   border-t
+                   border-white/5"
+        >
+
+            <div class="max-w-6xl mx-auto">
+
+
+                <div
+                    class="flex
+                           flex-col
+                           md:flex-row
+                           md:items-end
+                           justify-between
+                           mb-16"
+                >
+
+                    <div>
+
+                        <span
+                            class="text-xs
+                                   font-bold
+                                   text-[#ef233c]
+                                   uppercase
+                                   tracking-widest
+                                   mb-2
+                                   block"
+                        >
+                            Oportunidades Únicas
+                        </span>
+
+                        <h2
+                            class="text-3xl
+                                   md:text-5xl
+                                   font-semibold
+                                   text-white
+                                   tracking-tight
+                                   font-manrope"
+                        >
+                            Imóveis Destaque & Exclusivos
+                        </h2>
+
+                    </div>
+
+
+                    <p
+                        class="text-zinc-400
+                               text-sm
+                               max-w-sm
+                               mt-4
+                               md:mt-0"
+                    >
+                        Selecionados a dedo para clientes exigentes que buscam sofisticação e alta valorização em Águas Lindas.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="grid
+                           grid-cols-1
+                           md:grid-cols-3
+                           gap-8"
+                >
+
+
+                    <!-- =================================================
+                         IMÓVEL 1
+                    ================================================== -->
+
+                    <div
+                        class="group
+                               relative
+                               bg-black
+                               border border-white/10
+                               rounded-2xl
+                               overflow-hidden
+                               hover:border-[#ef233c]/50
+                               transition-all
+                               shadow-xl"
+                    >
+
+                        <div class="absolute top-4 left-4 z-20">
+
+                            <span
+                                class="bg-[#ef233c]
+                                       text-white
+                                       text-[10px]
+                                       font-bold
+                                       uppercase
+                                       tracking-widest
+                                       px-3 py-1
+                                       rounded-full
+                                       shadow-lg
+                                       animate-pulse"
+                            >
+                                Exclusivo
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="h-64
+                                   overflow-hidden
+                                   relative"
+                        >
+
+                            <img
+                                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
+                                alt="Mansão"
+                                class="w-full
+                                       h-full
+                                       object-cover
+                                       group-hover:scale-105
+                                       transition-transform
+                                       duration-500"
+                            >
+
+                        </div>
+
+
+                        <div class="p-6">
+
+                            <div
+                                class="text-xs
+                                       font-mono
+                                       text-zinc-500
+                                       mb-1"
+                            >
+                                Águas Lindas - Setor Tradicional
+                            </div>
+
+                            <h3
+                                class="text-xl
+                                       font-bold
+                                       font-manrope
+                                       text-white
+                                       mb-2"
+                            >
+                                Residencial Alpha Gardens
+                            </h3>
+
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-4
+                                       text-xs
+                                       text-zinc-400
+                                       mb-4"
+                            >
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:bed"></iconify-icon>
+                                    4 Quartos
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:bath"></iconify-icon>
+                                    5 Banheiros
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:maximize"></iconify-icon>
+                                    380m²
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="flex
+                                       items-center
+                                       justify-between
+                                       pt-4
+                                       border-t
+                                       border-white/5"
+                            >
+
+                                <div>
+
+                                    <span
+                                        class="text-xs
+                                               text-zinc-500
+                                               line-through"
+                                    >
+                                        R$ 1.450.000
+                                    </span>
+
+                                    <div
+                                        class="text-lg
+                                               font-bold
+                                               text-emerald-400"
+                                    >
+                                        R$ 1.280.000
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    onclick="openBookingModal('Residencial Alpha Gardens')"
+                                    class="px-4
+                                           py-2
+                                           bg-[#ef233c]/10
+                                           hover:bg-[#ef233c]
+                                           border
+                                           border-[#ef233c]/30
+                                           rounded-lg
+                                           text-xs
+                                           font-bold
+                                           uppercase
+                                           tracking-wider
+                                           transition-all"
+                                >
+                                    Agendar Visita
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         IMÓVEL 2
+                    ================================================== -->
+
+                    <div
+                        class="group
+                               relative
+                               bg-black
+                               border border-white/10
+                               rounded-2xl
+                               overflow-hidden
+                               hover:border-[#ef233c]/50
+                               transition-all
+                               shadow-xl"
+                    >
+
+                        <div class="absolute top-4 left-4 z-20">
+
+                            <span
+                                class="bg-amber-500
+                                       text-black
+                                       text-[10px]
+                                       font-bold
+                                       uppercase
+                                       tracking-widest
+                                       px-3 py-1
+                                       rounded-full
+                                       shadow-lg"
+                            >
+                                Promoção
+                            </span>
+
+                        </div>
+
+
+                        <div class="h-64 overflow-hidden relative">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                                alt="Casa Moderna"
+                                class="w-full
+                                       h-full
+                                       object-cover
+                                       group-hover:scale-105
+                                       transition-transform
+                                       duration-500"
+                            >
+
+                        </div>
+
+
+                        <div class="p-6">
+
+                            <div
+                                class="text-xs
+                                       font-mono
+                                       text-zinc-500
+                                       mb-1"
+                            >
+                                Mansões Lago Sul
+                            </div>
+
+
+                            <h3
+                                class="text-xl
+                                       font-bold
+                                       font-manrope
+                                       text-white
+                                       mb-2"
+                            >
+                                Villa Bella Vista
+                            </h3>
+
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-4
+                                       text-xs
+                                       text-zinc-400
+                                       mb-4"
+                            >
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:bed"></iconify-icon>
+                                    3 Quartos
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:bath"></iconify-icon>
+                                    3 Banheiros
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:maximize"></iconify-icon>
+                                    240m²
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="flex
+                                       items-center
+                                       justify-between
+                                       pt-4
+                                       border-t
+                                       border-white/5"
+                            >
+
+                                <div>
+
+                                    <span
+                                        class="text-xs
+                                               text-zinc-500
+                                               line-through"
+                                    >
+                                        R$ 890.000
+                                    </span>
+
+                                    <div
+                                        class="text-lg
+                                               font-bold
+                                               text-emerald-400"
+                                    >
+                                        R$ 820.000
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    onclick="openBookingModal('Villa Bella Vista')"
+                                    class="px-4
+                                           py-2
+                                           bg-[#ef233c]/10
+                                           hover:bg-[#ef233c]
+                                           border
+                                           border-[#ef233c]/30
+                                           rounded-lg
+                                           text-xs
+                                           font-bold
+                                           uppercase
+                                           tracking-wider
+                                           transition-all"
+                                >
+                                    Agendar Visita
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         IMÓVEL 3
+                    ================================================== -->
+
+                    <div
+                        class="group
+                               relative
+                               bg-black
+                               border border-white/10
+                               rounded-2xl
+                               overflow-hidden
+                               hover:border-[#ef233c]/50
+                               transition-all
+                               shadow-xl"
+                    >
+
+                        <div class="absolute top-4 left-4 z-20">
+
+                            <span
+                                class="bg-emerald-600
+                                       text-white
+                                       text-[10px]
+                                       font-bold
+                                       uppercase
+                                       tracking-widest
+                                       px-3 py-1
+                                       rounded-full
+                                       shadow-lg"
+                            >
+                                Novo Lançamento
+                            </span>
+
+                        </div>
+
+
+                        <div class="h-64 overflow-hidden relative">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+                                alt="Apartamento Luxo"
+                                class="w-full
+                                       h-full
+                                       object-cover
+                                       group-hover:scale-105
+                                       transition-transform
+                                       duration-500"
+                            >
+
+                        </div>
+
+
+                        <div class="p-6">
+
+                            <div
+                                class="text-xs
+                                       font-mono
+                                       text-zinc-500
+                                       mb-1"
+                            >
+                                Centro Comercial
+                            </div>
+
+
+                            <h3
+                                class="text-xl
+                                       font-bold
+                                       font-manrope
+                                       text-white
+                                       mb-2"
+                            >
+                                Edifício Panorama Tower
+                            </h3>
+
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-4
+                                       text-xs
+                                       text-zinc-400
+                                       mb-4"
+                            >
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:bed"></iconify-icon>
+                                    2 Quartos
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:bath"></iconify-icon>
+                                    2 Banheiros
+                                </span>
+
+                                <span class="flex items-center gap-1">
+                                    <iconify-icon icon="lucide:maximize"></iconify-icon>
+                                    115m²
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="flex
+                                       items-center
+                                       justify-between
+                                       pt-4
+                                       border-t
+                                       border-white/5"
+                            >
+
+                                <div>
+
+                                    <span
+                                        class="text-xs
+                                               text-transparent"
+                                    >
+                                        .
+                                    </span>
+
+                                    <div
+                                        class="text-lg
+                                               font-bold
+                                               text-emerald-400"
+                                    >
+                                        R$ 490.000
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    onclick="openBookingModal('Edifício Panorama Tower')"
+                                    class="px-4
+                                           py-2
+                                           bg-[#ef233c]/10
+                                           hover:bg-[#ef233c]
+                                           border
+                                           border-[#ef233c]/30
+                                           rounded-lg
+                                           text-xs
+                                           font-bold
+                                           uppercase
+                                           tracking-wider
+                                           transition-all"
+                                >
+                                    Agendar Visita
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PORTFÓLIO
+        ====================================================== -->
+
+        <section
+            id="portfolio"
+            class="py-32 px-6"
+        >
+
+            <div class="max-w-7xl mx-auto">
+
+
+                <div
+                    class="mb-16
+                           text-center
+                           max-w-3xl
+                           mx-auto"
+                >
+
+                    <h2
+                        class="text-4xl
+                               md:text-5xl
+                               font-semibold
+                               text-white
+                               tracking-tight
+                               font-manrope
+                               mb-4"
+                    >
+
+                        Portfólio Completo de
+
+                        <span class="text-[#ef233c]">
+                            Imóveis
+                        </span>
+
+                    </h2>
+
+
+                    <p class="text-zinc-400 text-sm">
+                        Filtre por tipo, quartos ou faixa de preço para encontrar sua próxima conquista.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="grid
+                           grid-cols-1
+                           md:grid-cols-3
+                           lg:grid-cols-4
+                           gap-6"
+                >
+
+
+                    <!-- CARD 1 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               hover:border-white/20
+                               transition-all
+                               group"
+                    >
+
+                        <div
+                            class="h-48
+                                   relative
+                                   overflow-hidden"
+                        >
+
+                            <img
+                                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            >
+
+                            <span
+                                class="absolute
+                                       top-3
+                                       right-3
+                                       bg-black/70
+                                       backdrop-blur-md
+                                       text-[10px]
+                                       font-mono
+                                       px-2.5
+                                       py-1
+                                       rounded
+                                       text-white"
+                            >
+                                Casa
+                            </span>
+
+                        </div>
+
+
+                        <div class="p-5">
+
+                            <div class="text-xs text-zinc-500 font-mono mb-1">
+                                Parque das Nações
+                            </div>
+
+                            <h4 class="font-bold font-manrope text-white mb-2">
+                                Casa Térrea Moderna
+                            </h4>
+
+                            <div class="text-emerald-400 font-bold mb-3">
+                                R$ 450.000
+                            </div>
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-3
+                                       text-[11px]
+                                       text-zinc-400
+                                       pt-3
+                                       border-t
+                                       border-white/5
+                                       mb-4"
+                            >
+                                <span>3 Dorm</span>
+                                •
+                                <span>2 Banho</span>
+                                •
+                                <span>180m²</span>
+                            </div>
+
+
+                            <button
+                                onclick="openBookingModal('Casa Térrea Moderna')"
+                                class="w-full
+                                       py-2.5
+                                       rounded-lg
+                                       bg-[#ef233c]/10
+                                       hover:bg-[#ef233c]
+                                       border
+                                       border-[#ef233c]/30
+                                       text-xs
+                                       font-bold
+                                       uppercase
+                                       tracking-wider
+                                       transition-all"
+                            >
+                                Agendar Visita
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CARD 2 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               hover:border-white/20
+                               transition-all
+                               group"
+                    >
+
+                        <div
+                            class="h-48
+                                   relative
+                                   overflow-hidden"
+                        >
+
+                            <img
+                                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            >
+
+                            <span
+                                class="absolute
+                                       top-3
+                                       right-3
+                                       bg-black/70
+                                       backdrop-blur-md
+                                       text-[10px]
+                                       font-mono
+                                       px-2.5
+                                       py-1
+                                       rounded
+                                       text-white"
+                            >
+                                Apartamento
+                            </span>
+
+                        </div>
+
+
+                        <div class="p-5">
+
+                            <div class="text-xs text-zinc-500 font-mono mb-1">
+                                Águas Lindas Centro
+                            </div>
+
+                            <h4 class="font-bold font-manrope text-white mb-2">
+                                Apto Executivo Plaza
+                            </h4>
+
+                            <div class="text-emerald-400 font-bold mb-3">
+                                R$ 295.000
+                            </div>
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-3
+                                       text-[11px]
+                                       text-zinc-400
+                                       pt-3
+                                       border-t
+                                       border-white/5
+                                       mb-4"
+                            >
+                                <span>2 Dorm</span>
+                                •
+                                <span>1 Banho</span>
+                                •
+                                <span>75m²</span>
+                            </div>
+
+
+                            <button
+                                onclick="openBookingModal('Apto Executivo Plaza')"
+                                class="w-full
+                                       py-2.5
+                                       rounded-lg
+                                       bg-[#ef233c]/10
+                                       hover:bg-[#ef233c]
+                                       border
+                                       border-[#ef233c]/30
+                                       text-xs
+                                       font-bold
+                                       uppercase
+                                       tracking-wider
+                                       transition-all"
+                            >
+                                Agendar Visita
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CARD 3 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               hover:border-white/20
+                               transition-all
+                               group"
+                    >
+
+                        <div
+                            class="h-48
+                                   relative
+                                   overflow-hidden"
+                        >
+
+                            <img
+                                src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            >
+
+                            <span
+                                class="absolute
+                                       top-3
+                                       right-3
+                                       bg-black/70
+                                       backdrop-blur-md
+                                       text-[10px]
+                                       font-mono
+                                       px-2.5
+                                       py-1
+                                       rounded
+                                       text-white"
+                            >
+                                Comercial
+                            </span>
+
+                        </div>
+
+
+                        <div class="p-5">
+
+                            <div class="text-xs text-zinc-500 font-mono mb-1">
+                                Avenida Principal
+                            </div>
+
+                            <h4 class="font-bold font-manrope text-white mb-2">
+                                Sala Comercial Business
+                            </h4>
+
+                            <div class="text-emerald-400 font-bold mb-3">
+                                R$ 380.000
+                            </div>
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-3
+                                       text-[11px]
+                                       text-zinc-400
+                                       pt-3
+                                       border-t
+                                       border-white/5
+                                       mb-4"
+                            >
+                                <span>Loja</span>
+                                •
+                                <span>1 Banho</span>
+                                •
+                                <span>90m²</span>
+                            </div>
+
+
+                            <button
+                                onclick="openBookingModal('Sala Comercial Business')"
+                                class="w-full
+                                       py-2.5
+                                       rounded-lg
+                                       bg-[#ef233c]/10
+                                       hover:bg-[#ef233c]
+                                       border
+                                       border-[#ef233c]/30
+                                       text-xs
+                                       font-bold
+                                       uppercase
+                                       tracking-wider
+                                       transition-all"
+                            >
+                                Agendar Visita
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CARD 4 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               hover:border-white/20
+                               transition-all
+                               group"
+                    >
+
+                        <div
+                            class="h-48
+                                   relative
+                                   overflow-hidden"
+                        >
+
+                            <img
+                                src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            >
+
+                            <span
+                                class="absolute
+                                       top-3
+                                       right-3
+                                       bg-black/70
+                                       backdrop-blur-md
+                                       text-[10px]
+                                       font-mono
+                                       px-2.5
+                                       py-1
+                                       rounded
+                                       text-white"
+                            >
+                                Terreno
+                            </span>
+
+                        </div>
+
+
+                        <div class="p-5">
+
+                            <div class="text-xs text-zinc-500 font-mono mb-1">
+                                Condomínio Fechado
+                            </div>
+
+                            <h4 class="font-bold font-manrope text-white mb-2">
+                                Lote Alphaville Regional
+                            </h4>
+
+                            <div class="text-emerald-400 font-bold mb-3">
+                                R$ 180.000
+                            </div>
+
+                            <div
+                                class="flex
+                                       items-center
+                                       gap-3
+                                       text-[11px]
+                                       text-zinc-400
+                                       pt-3
+                                       border-t
+                                       border-white/5
+                                       mb-4"
+                            >
+                                <span>Terreno</span>
+                                •
+                                <span>Plano</span>
+                                •
+                                <span>500m²</span>
+                            </div>
+
+
+                            <button
+                                onclick="openBookingModal('Lote Alphaville Regional')"
+                                class="w-full
+                                       py-2.5
+                                       rounded-lg
+                                       bg-[#ef233c]/10
+                                       hover:bg-[#ef233c]
+                                       border
+                                       border-[#ef233c]/30
+                                       text-xs
+                                       font-bold
+                                       uppercase
+                                       tracking-wider
+                                       transition-all"
+                            >
+                                Agendar Visita
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SOBRE
+        ====================================================== -->
+
+        <section
+            id="sobre"
+            class="py-32
+                   px-6
+                   bg-zinc-950/40
+                   border-t
+                   border-white/5"
+        >
+
+            <div class="max-w-6xl mx-auto">
+
+
+                <div
+                    class="grid
+                           grid-cols-1
+                           lg:grid-cols-2
+                           gap-16
+                           items-center
+                           mb-24"
+                >
+
+                    <div>
+
+                        <span
+                            class="text-xs
+                                   font-bold
+                                   text-[#ef233c]
+                                   uppercase
+                                   tracking-widest
+                                   mb-2
+                                   block"
+                        >
+                            Tradição & Inovação
+                        </span>
+
+
+                        <h2
+                            class="text-3xl
+                                   md:text-5xl
+                                   font-semibold
+                                   text-white
+                                   tracking-tight
+                                   font-manrope
+                                   mb-6"
+                        >
+                            Quem é a Vannut Prime?
+                        </h2>
+
+
+                        <p
+                            class="text-zinc-400
+                                   text-lg
+                                   leading-relaxed
+                                   mb-6"
+                        >
+                            Fundada em 2009, a Vannut Prime nasceu com o propósito de transformar o mercado imobiliário de Águas Lindas de Goiás através de um atendimento consultivo, transparente e focado em excelência.
+                        </p>
+
+
+                        <p
+                            class="text-zinc-400
+                                   text-sm
+                                   leading-relaxed
+                                   mb-8"
+                        >
+                            Contamos com uma equipe de especialistas certificados (CRECI) preparados para assegurar que toda documentação, financiamento e trâmite jurídico ocorram de forma totalmente segura e digital.
+                        </p>
+
+
+                        <div class="grid grid-cols-2 gap-6">
+
+                            <div
+                                class="p-4
+                                       bg-black/40
+                                       border border-white/5
+                                       rounded-xl"
+                            >
+
+                                <div
+                                    class="text-2xl
+                                           font-bold
+                                           font-manrope
+                                           text-[#ef233c]
+                                           mb-1"
+                                >
+                                    100%
+                                </div>
+
+                                <div class="text-xs text-zinc-400">
+                                    Documentação Verificada
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="p-4
+                                       bg-black/40
+                                       border border-white/5
+                                       rounded-xl"
+                            >
+
+                                <div
+                                    class="text-2xl
+                                           font-bold
+                                           font-manrope
+                                           text-emerald-400
+                                           mb-1"
+                                >
+                                    2 Semanas
+                                </div>
+
+                                <div class="text-xs text-zinc-400">
+                                    Tempo Médio de Fechamento
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="relative">
+
+                        <div
+                            class="absolute
+                                   inset-0
+                                   bg-[#ef233c]/10
+                                   rounded-2xl
+                                   blur-2xl"
+                        ></div>
+
+
+                        <img
+                            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1000&q=80"
+                            alt="Escritório"
+                            class="relative
+                                   rounded-2xl
+                                   border border-white/10
+                                   object-cover
+                                   h-[450px]
+                                   w-full"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     EQUIPE
+                ================================================== -->
+
+                <div class="text-center mb-16">
+
+                    <h3
+                        class="text-2xl
+                               md:text-3xl
+                               font-bold
+                               font-manrope
+                               mb-3"
+                    >
+                        Conheça Nossos Especialistas
+                    </h3>
+
+                    <p class="text-zinc-400 text-sm">
+                        Profissionais dedicados a encontrar o imóvel ideal para o seu momento de vida.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="grid
+                           grid-cols-1
+                           md:grid-cols-3
+                           gap-8"
+                >
+
+
+                    <!-- CORRETOR 1 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               group"
+                    >
+
+                        <div class="h-72 overflow-hidden">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            >
+
+                        </div>
+
+
+                        <div class="p-6">
+
+                            <div
+                                class="text-xs
+                                       text-[#ef233c]
+                                       font-mono
+                                       mb-1"
+                            >
+                                CRECI 24591-GO
+                            </div>
+
+                            <h4
+                                class="text-lg
+                                       font-bold
+                                       font-manrope
+                                       text-white
+                                       mb-1"
+                            >
+                                Camila Vannut
+                            </h4>
+
+                            <p
+                                class="text-xs
+                                       text-zinc-400
+                                       mb-4"
+                            >
+                                Especialista em Imóveis de Alto Padrão e Condomínios Fechados.
+                            </p>
+
+                            <a
+                                href="https://wa.me/5561999999999"
+                                class="inline-flex
+                                       items-center
+                                       gap-2
+                                       text-xs
+                                       font-bold
+                                       text-emerald-400
+                                       hover:underline"
+                            >
+
+                                <iconify-icon icon="lucide:message-circle"></iconify-icon>
+
+                                Falar com Camila
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CORRETOR 2 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               group"
+                    >
+
+                        <div class="h-72 overflow-hidden">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            >
+
+                        </div>
+
+
+                        <div class="p-6">
+
+                            <div
+                                class="text-xs
+                                       text-[#ef233c]
+                                       font-mono
+                                       mb-1"
+                            >
+                                CRECI 19822-GO
+                            </div>
+
+                            <h4
+                                class="text-lg
+                                       font-bold
+                                       font-manrope
+                                       text-white
+                                       mb-1"
+                            >
+                                Lucas Mendes
+                            </h4>
+
+                            <p
+                                class="text-xs
+                                       text-zinc-400
+                                       mb-4"
+                            >
+                                Consultor de Investimentos Comerciais e Primeira Aquisição.
+                            </p>
+
+                            <a
+                                href="https://wa.me/5561999999999"
+                                class="inline-flex
+                                       items-center
+                                       gap-2
+                                       text-xs
+                                       font-bold
+                                       text-emerald-400
+                                       hover:underline"
+                            >
+
+                                <iconify-icon icon="lucide:message-circle"></iconify-icon>
+
+                                Falar com Lucas
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CORRETOR 3 -->
+
+                    <div
+                        class="bg-black
+                               border border-white/10
+                               rounded-xl
+                               overflow-hidden
+                               group"
+                    >
+
+                        <div class="h-72 overflow-hidden">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            >
+
+                        </div>
+
+
+                        <div class="p-6">
+
+                            <div
+                                class="text-xs
+                                       text-[#ef233c]
+                                       font-mono
+                                       mb-1"
+                            >
+                                CRECI 31204-GO
+                            </div>
+
+                            <h4
+                                class="text-lg
+                                       font-bold
+                                       font-manrope
+                                       text-white
+                                       mb-1"
+                            >
+                                Juliana Ribeiro
+                            </h4>
+
+                            <p
+                                class="text-xs
+                                       text-zinc-400
+                                       mb-4"
+                            >
+                                Especialista em Financiamento Habitacional e Crédito Imobiliário.
+                            </p>
+
+                            <a
+                                href="https://wa.me/5561999999999"
+                                class="inline-flex
+                                       items-center
+                                       gap-2
+                                       text-xs
+                                       font-bold
+                                       text-emerald-400
+                                       hover:underline"
+                            >
+
+                                <iconify-icon icon="lucide:message-circle"></iconify-icon>
+
+                                Falar com Juliana
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DEPOIMENTOS
+        ====================================================== -->
+
+        <section class="py-32 px-6">
+
+            <div class="max-w-6xl mx-auto">
+
+                <div class="text-center mb-16">
+
+                    <h2
+                        class="text-4xl
+                               md:text-5xl
+                               font-semibold
+                               text-white
+                               tracking-tight
+                               font-manrope
+                               mb-4"
+                    >
+
+                        O Que Nossos
+
+                        <span class="text-[#ef233c]">
+                            Clientes Dizem
+                        </span>
+
+                    </h2>
+
+
+                    <p class="text-zinc-400 text-sm">
+                        Histórias reais de quem realizou o sonho da casa própria com a Vannut.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="grid
+                           grid-cols-1
+                           md:grid-cols-3
+                           gap-8"
+                >
+
+
+                    <!-- DEPOIMENTO 1 -->
+
+                    <div
+                        class="p-8
+                               border border-white/10
+                               bg-black
+                               rounded-xl
+                               relative
+                               flex
+                               flex-col
+                               justify-between"
+                    >
+
+                        <div>
+
+                            <div
+                                class="flex
+                                       gap-1
+                                       text-yellow-500
+                                       mb-4"
+                            >
+
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+
+                            </div>
+
+
+                            <p
+                                class="text-zinc-300
+                                       text-sm
+                                       italic
+                                       mb-6
+                                       leading-relaxed"
+                            >
+                                "Encontrei o imóvel perfeito em apenas 2 semanas! A equipe cuidou de toda a burocracia do financiamento sem estresse."
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="flex
+                                   items-center
+                                   gap-3
+                                   pt-4
+                                   border-t
+                                   border-white/5"
+                        >
+
+                            <div
+                                class="w-10 h-10
+                                       bg-zinc-800
+                                       rounded-full
+                                       flex
+                                       items-center
+                                       justify-center
+                                       font-bold
+                                       text-white
+                                       text-sm"
+                            >
+                                RM
+                            </div>
+
+                            <div>
+
+                                <div class="font-bold text-sm text-white">
+                                    Roberto Martins
+                                </div>
+
+                                <div class="text-xs text-zinc-500">
+                                    Comprou Casa no Setor Tradicional
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DEPOIMENTO 2 -->
+
+                    <div
+                        class="p-8
+                               border border-white/10
+                               bg-black
+                               rounded-xl
+                               relative
+                               flex
+                               flex-col
+                               justify-between"
+                    >
+
+                        <div>
+
+                            <div
+                                class="flex
+                                       gap-1
+                                       text-yellow-500
+                                       mb-4"
+                            >
+
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+
+                            </div>
+
+
+                            <p
+                                class="text-zinc-300
+                                       text-sm
+                                       italic
+                                       mb-6
+                                       leading-relaxed"
+                            >
+                                "A melhor imobiliária de Águas Lindas! Atendimento humanizado, transparente e corretores extremamente preparados."
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="flex
+                                   items-center
+                                   gap-3
+                                   pt-4
+                                   border-t
+                                   border-white/5"
+                        >
+
+                            <div
+                                class="w-10 h-10
+                                       bg-zinc-800
+                                       rounded-full
+                                       flex
+                                       items-center
+                                       justify-center
+                                       font-bold
+                                       text-white
+                                       text-sm"
+                            >
+                                AP
+                            </div>
+
+                            <div>
+
+                                <div class="font-bold text-sm text-white">
+                                    Ana Paula Souza
+                                </div>
+
+                                <div class="text-xs text-zinc-500">
+                                    Comprou Apartamento
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DEPOIMENTO 3 -->
+
+                    <div
+                        class="p-8
+                               border border-white/10
+                               bg-black
+                               rounded-xl
+                               relative
+                               flex
+                               flex-col
+                               justify-between"
+                    >
+
+                        <div>
+
+                            <div
+                                class="flex
+                                       gap-1
+                                       text-yellow-500
+                                       mb-4"
+                            >
+
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+                                <iconify-icon icon="lucide:star" fill="currentColor"></iconify-icon>
+
+                            </div>
+
+
+                            <p
+                                class="text-zinc-300
+                                       text-sm
+                                       italic
+                                       mb-6
+                                       leading-relaxed"
+                            >
+                                "Vendi meu terreno com eles em tempo recorde e por um excelente preço de mercado. Recomendo de olhos fechados!"
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="flex
+                                   items-center
+                                   gap-3
+                                   pt-4
+                                   border-t
+                                   border-white/5"
+                        >
+
+                            <div
+                                class="w-10 h-10
+                                       bg-zinc-800
+                                       rounded-full
+                                       flex
+                                       items-center
+                                       justify-center
+                                       font-bold
+                                       text-white
+                                       text-sm"
+                            >
+                                CS
+                            </div>
+
+                            <div>
+
+                                <div class="font-bold text-sm text-white">
+                                    Carlos Silva
+                                </div>
+
+                                <div class="text-xs text-zinc-500">
+                                    Vendeu Terreno Comercial
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DIFERENCIAIS
+        ====================================================== -->
+
+        <section
+            id="diferenciais"
+            class="py-32
+                   px-6
+                   bg-zinc-950/40
+                   border-t
+                   border-white/5"
+        >
+
+            <div class="max-w-6xl mx-auto">
+
+
+                <div class="text-center mb-16">
+
+                    <span
+                        class="text-xs
+                               font-bold
+                               text-[#ef233c]
+                               uppercase
+                               tracking-widest
+                               mb-2
+                               block"
+                    >
+                        Por Que Nos Escolher
+                    </span>
+
+
+                    <h2
+                        class="text-4xl
+                               md:text-5xl
+                               font-semibold
+                               text-white
+                               tracking-tight
+                               font-manrope"
+                    >
+
+                        Diferenciais que
+
+                        <span class="text-[#ef233c]">
+                            Garantem Sucesso
+                        </span>
+
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="grid
+                           grid-cols-1
+                           md:grid-cols-2
+                           lg:grid-cols-4
+                           gap-6"
+                >
+
+
+                    <div
+                        class="p-6
+                               border border-white/10
+                               bg-black
+                               rounded-xl"
+                    >
+
+                        <div
+                            class="w-12 h-12
+                                   rounded-lg
+                                   bg-white/5
+                                   flex
+                                   items-center
+                                   justify-center
+                                   text-[#ef233c]
+                                   mb-4"
+                        >
+
+                            <iconify-icon
+                                icon="lucide:shield-check"
+                                class="w-6 h-6"
+                            ></iconify-icon>
+
+                        </div>
+
+
+                        <h3
+                            class="font-bold
+                                   font-manrope
+                                   text-white
+                                   mb-2"
+                        >
+                            Documentação 100% Segura
+                        </h3>
+
+
+                        <p
+                            class="text-xs
+                                   text-zinc-400
+                                   leading-relaxed"
+                        >
+                            Análise jurídica completa de cada imóvel para evitar qualquer surpresa indesejada.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="p-6
+                               border border-white/10
+                               bg-black
+                               rounded-xl"
+                    >
+
+                        <div
+                            class="w-12 h-12
+                                   rounded-lg
+                                   bg-white/5
+                                   flex
+                                   items-center
+                                   justify-center
+                                   text-blue-400
+                                   mb-4"
+                        >
+
+                            <iconify-icon
+                                icon="lucide:headphones"
+                                class="w-6 h-6"
+                            ></iconify-icon>
+
+                        </div>
+
+
+                        <h3
+                            class="font-bold
+                                   font-manrope
+                                   text-white
+                                   mb-2"
+                        >
+                            Consultoria Gratuita
+                        </h3>
+
+
+                        <p
+                            class="text-xs
+                                   text-zinc-400
+                                   leading-relaxed"
+                        >
+                            Orientação de investimento e escolha de crédito imobiliário sob medida.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="p-6
+                               border border-white/10
+                               bg-black
+                               rounded-xl"
+                    >
+
+                        <div
+                            class="w-12 h-12
+                                   rounded-lg
+                                   bg-white/5
+                                   flex
+                                   items-center
+                                   justify-center
+                                   text-yellow-400
+                                   mb-4"
+                        >
+
+                            <iconify-icon
+                                icon="lucide:zap"
+                                class="w-6 h-6"
+                            ></iconify-icon>
+
+                        </div>
+
+
+                        <h3
+                            class="font-bold
+                                   font-manrope
+                                   text-white
+                                   mb-2"
+                        >
+                            Financiamento Assistido
+                        </h3>
+
+
+                        <p
+                            class="text-xs
+                                   text-zinc-400
+                                   leading-relaxed"
+                        >
+                            Parceria direta com bancos para aprovação rápida de crédito com as menores taxas.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="p-6
+                               border border-white/10
+                               bg-black
+                               rounded-xl"
+                    >
+
+                        <div
+                            class="w-12 h-12
+                                   rounded-lg
+                                   bg-white/5
+                                   flex
+                                   items-center
+                                   justify-center
+                                   text-purple-400
+                                   mb-4"
+                        >
+
+                            <iconify-icon
+                                icon="lucide:home"
+                                class="w-6 h-6"
+                            ></iconify-icon>
+
+                        </div>
+
+
+                        <h3
+                            class="font-bold
+                                   font-manrope
+                                   text-white
+                                   mb-2"
+                        >
+                            Avaliação Gratuita
+                        </h3>
+
+
+                        <p
+                            class="text-xs
+                                   text-zinc-400
+                                   leading-relaxed"
+                        >
+                            Quer vender ou alugar? Fazemos uma análise de mercado precisa do seu patrimônio.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTATO
+        ====================================================== -->
+
+        <section
+            id="contato"
+            class="py-32
+                   px-6
+                   bg-black
+                   relative"
+        >
+
+            <div
+                class="max-w-4xl
+                       mx-auto
+                       border border-white/10
+                       bg-zinc-900/40
+                       backdrop-blur-xl
+                       p-8 md:p-12
+                       rounded-3xl
+                       shadow-2xl"
+            >
+
+                <div class="text-center mb-10">
+
+                    <h2
+                        class="text-3xl
+                               md:text-5xl
+                               font-bold
+                               font-manrope
+                               mb-3
+                               tracking-tight"
+                    >
+
+                        Fale com um
+
+                        <span class="text-[#ef233c]">
+                            Especialista
+                        </span>
+
+                    </h2>
+
+
+                    <p class="text-zinc-400 text-sm">
+                        Preencha o formulário abaixo ou agende uma visita diretamente.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="contactForm"
+                    class="space-y-6"
+                    onsubmit="submitContactForm(event)"
+                >
+
+                    <div
+                        class="grid
+                               grid-cols-1
+                               md:grid-cols-2
+                               gap-6"
+                    >
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-xs
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-2"
+                            >
+                                Seu Nome
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contactName"
+                                placeholder="Ex: João Silva"
+                                required
+                                class="booking-input"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-xs
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-2"
+                            >
+                                Telefone / WhatsApp
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contactPhone"
+                                placeholder="(61) 99999-9999"
+                                required
+                                class="booking-input"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="grid
+                               grid-cols-1
+                               md:grid-cols-2
+                               gap-6"
+                    >
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-xs
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-2"
+                            >
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                id="contactEmail"
+                                placeholder="seu@email.com"
+                                required
+                                class="booking-input"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label
+                                class="block
+                                       text-xs
+                                       uppercase
+                                       tracking-widest
+                                       text-zinc-400
+                                       mb-2"
+                            >
+                                O que você procura?
+                            </label>
+
+                            <select
+                                id="contactType"
+                                class="booking-input"
+                            >
+
+                                <option>Comprar Casa</option>
+                                <option>Comprar Apartamento</option>
+                                <option>Alugar Imóvel</option>
+                                <option>Anunciar Meu Imóvel</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <label
+                            class="block
+                                   text-xs
+                                   uppercase
+                                   tracking-widest
+                                   text-zinc-400
+                                   mb-2"
+                        >
+                            Mensagem
+                        </label>
+
+                        <textarea
+                            id="contactMessage"
+                            rows="4"
+                            placeholder="Descreva os detalhes do imóvel desejado..."
+                            class="booking-input"
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="w-full
+                               py-4
+                               bg-[#ef233c]
+                               hover:bg-red-700
+                               text-white
+                               font-bold
+                               rounded-xl
+                               text-sm
+                               uppercase
+                               tracking-wider
+                               transition-all
+                               shadow-lg
+                               shadow-red-600/20"
+                    >
+                        Enviar Solicitação
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer
+        class="bg-black
+               border-t border-zinc-900
+               pt-20
+               pb-10
+               relative
+               overflow-hidden"
+    >
+
+        <div
+            class="max-w-7xl
+                   mx-auto
+                   px-6
+                   grid
+                   grid-cols-1
+                   md:grid-cols-4
+                   gap-12
+                   mb-24
+                   relative
+                   z-10"
+        >
+
+            <div class="md:col-span-2">
+
+                <div
+                    class="flex
+                           items-center
+                           gap-2
+                           mb-6"
+                >
+
+                    <div
+                        class="w-5 h-5
+                               bg-[#ef233c]
+                               rounded-sm
+                               rotate-45"
+                    ></div>
+
+                    <span
+                        class="text-2xl
+                               font-bold
+                               font-manrope
+                               tracking-tight"
+                    >
+                        Vannut Prime
+                    </span>
+
+                </div>
+
+
+                <p
+                    class="text-zinc-500
+                           max-w-xs
+                           leading-relaxed
+                           text-sm"
+                >
+                    Especialistas em conectar pessoas aos melhores imóveis de Águas Lindas de Goiás com segurança jurídica e excelência.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4
+                    class="text-xs
+                           font-bold
+                           text-[#ef233c]
+                           uppercase
+                           tracking-widest
+                           mb-6"
+                >
+                    Navegação
+                </h4>
+
+
+                <ul
+                    class="space-y-4
+                           text-zinc-400
+                           text-sm"
+                >
+
+                    <li>
+                        <a
+                            href="#portfolio"
+                            class="hover:text-white transition-colors"
+                        >
+                            Buscar Imóveis
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#sobre"
+                            class="hover:text-white transition-colors"
+                        >
+                            Sobre Nós
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#diferenciais"
+                            class="hover:text-white transition-colors"
+                        >
+                            Diferenciais
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#contato"
+                            class="hover:text-white transition-colors"
+                        >
+                            Contato
+                        </a>
+                    </li>
+
+                    <li>
+
+                        <button
+                            onclick="openBookingModal()"
+                            class="hover:text-white transition-colors"
+                        >
+                            Agendar Visita
+                        </button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h4
+                    class="text-xs
+                           font-bold
+                           text-[#ef233c]
+                           uppercase
+                           tracking-widest
+                           mb-6"
+                >
+                    Contato
+                </h4>
+
+
+                <ul
+                    class="space-y-4
+                           text-zinc-400
+                           text-sm"
+                >
+
+                    <li>
+                        Águas Lindas de Goiás - GO
+                    </li>
+
+                    <li>
+                        Telefone: (61) 9999-9999
+                    </li>
+
+                    <li>
+                        Email: contato@vannutprime.com.br
+                    </li>
+
+                    <li>
+                        Seg a Sex: 08h às 18h
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- TEXTO GIGANTE -->
+
+        <div
+            class="flex
+                   justify-center
+                   items-center
+                   py-10
+                   opacity-20
+                   pointer-events-none"
+        >
+
+            <h1
+                class="text-[12vw]
+                       leading-none
+                       font-bold
+                       font-manrope
+                       tracking-tighter
+                       text-stroke
+                       select-none"
+            >
+                VANNUT PRIME
+            </h1>
+
+        </div>
+
+
+        <div
+            class="max-w-7xl
+                   mx-auto
+                   px-6
+                   border-t
+                   border-zinc-900
+                   pt-8
+                   flex
+                   flex-col
+                   md:flex-row
+                   items-center
+                   justify-between
+                   text-zinc-600
+                   text-[10px]
+                   uppercase
+                   tracking-widest"
+        >
+
+            <p>
+                &copy; 2026 Vannut Prime Imobiliária Ltda. CRECI 24591-J. Todos os direitos reservados.
+            </p>
+
+
+            <div
+                class="flex
+                       gap-6
+                       mt-4
+                       md:mt-0"
+            >
+
+                <a
+                    href="#"
+                    class="hover:text-zinc-400"
+                >
+                    Termos de Uso
+                </a>
+
+                <a
+                    href="#"
+                    class="hover:text-zinc-400"
+                >
+                    Política de Privacidade
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<!-- =============================================================
+     MODAL DE AGENDAMENTO
+============================================================== -->
+
+<div
+    id="bookingModal"
+    class="fixed
+           inset-0
+           z-[100]
+           items-center
+           justify-center
+           p-4
+           modal-backdrop"
+>
+
+
+    <!-- =========================================================
+         CONTAINER
+    ========================================================== -->
+
+    <div
+        id="bookingContainer"
+        class="w-full
+               max-w-2xl
+               max-h-[90vh]
+               overflow-y-auto
+               bg-zinc-950
+               border border-white/10
+               rounded-3xl
+               shadow-2xl
+               modal-animation"
+    >
+
+
+        <!-- =====================================================
+             CABEÇALHO
+        ====================================================== -->
+
+        <div
+            class="sticky
+                   top-0
+                   z-20
+                   bg-zinc-950/95
+                   backdrop-blur-xl
+                   border-b
+                   border-white/10
+                   px-6
+                   py-5
+                   flex
+                   items-center
+                   justify-between"
+        >
+
+            <div>
+
+                <div
+                    class="text-[10px]
+                           text-[#ef233c]
+                           font-bold
+                           uppercase
+                           tracking-[0.2em]
+                           mb-1"
+                >
+                    Visita Particular
+                </div>
+
+                <h2
+                    class="text-xl
+                           md:text-2xl
+                           font-bold
+                           font-manrope"
+                >
+                    Agende sua visita
+                </h2>
+
+            </div>
+
+
+            <button
+                onclick="closeBookingModal()"
+                class="w-10
+                       h-10
+                       rounded-full
+                       bg-white/5
+                       hover:bg-white/10
+                       flex
+                       items-center
+                       justify-center
+                       transition-all"
+                aria-label="Fechar"
+            >
+
+                <iconify-icon
+                    icon="lucide:x"
+                    class="text-xl"
+                ></iconify-icon>
+
+            </button>
+
+        </div>
+
+
+        <!-- =====================================================
+             FORMULÁRIO
+        ====================================================== -->
+
+        <div
+            id="bookingFormArea"
+            class="p-6 md:p-8"
+        >
+
+            <!-- PASSO 1 -->
+
+            <div class="mb-7">
+
+                <div
+                    class="flex
+                           items-center
+                           gap-3
+                           mb-4"
+                >
+
+                    <div
+                        class="w-8 h-8
+                               rounded-full
+                               bg-[#ef233c]
+                               flex
+                               items-center
+                               justify-center
+                               text-xs
+                               font-bold"
+                    >
+                        1
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            Escolha o imóvel
+                        </h3>
+
+                        <p class="text-xs text-zinc-500">
+                            Selecione qual propriedade deseja conhecer.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <select
+                    id="bookingProperty"
+                    onchange="updateBookingProperty()"
+                    class="booking-input"
+                >
+
+                    <option value="">
+                        Selecione um imóvel
+                    </option>
+
+                    <option value="Residencial Alpha Gardens">
+                        Residencial Alpha Gardens — R$ 1.280.000
+                    </option>
+
+                    <option value="Villa Bella Vista">
+                        Villa Bella Vista — R$ 820.000
+                    </option>
+
+                    <option value="Edifício Panorama Tower">
+                        Edifício Panorama Tower — R$ 490.000
+                    </option>
+
+                    <option value="Casa Térrea Moderna">
+                        Casa Térrea Moderna — R$ 450.000
+                    </option>
+
+                    <option value="Apto Executivo Plaza">
+                        Apto Executivo Plaza — R$ 295.000
+                    </option>
+
+                    <option value="Sala Comercial Business">
+                        Sala Comercial Business — R$ 380.000
+                    </option>
+
+                    <option value="Lote Alphaville Regional">
+                        Lote Alphaville Regional — R$ 180.000
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PASSO 2 -->
+
+            <div class="mb-7">
+
+                <div
+                    class="flex
+                           items-center
+                           gap-3
+                           mb-4"
+                >
+
+                    <div
+                        class="w-8 h-8
+                               rounded-full
+                               bg-[#ef233c]
+                               flex
+                               items-center
+                               justify-center
+                               text-xs
+                               font-bold"
+                    >
+                        2
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            Escolha a data
+                        </h3>
+
+                        <p class="text-xs text-zinc-500">
+                            Selecione um dia para realizar a visita.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                    onchange="updateAvailableTimes()"
+                    class="booking-input"
+                >
+
+            </div>
+
+
+            <!-- PASSO 3 -->
+
+            <div class="mb-7">
+
+                <div
+                    class="flex
+                           items-center
+                           gap-3
+                           mb-4"
+                >
+
+                    <div
+                        class="w-8 h-8
+                               rounded-full
+                               bg-[#ef233c]
+                               flex
+                               items-center
+                               justify-center
+                               text-xs
+                               font-bold"
+                    >
+                        3
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            Escolha o horário
+                        </h3>
+
+                        <p class="text-xs text-zinc-500">
+                            Horários disponíveis para atendimento.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="timeSlots"
+                    class="grid
+                           grid-cols-2
+                           sm:grid-cols-4
+                           gap-3"
+                >
+
+                    <div
+                        class="col-span-full
+                               text-sm
+                               text-zinc-500
+                               py-4
+                               text-center
+                               border
+                               border-dashed
+                               border-white/10
+                               rounded-xl"
+                    >
+                        Primeiro selecione uma data.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSO 4 -->
+
+            <div class="mb-7">
+
+                <div
+                    class="flex
+                           items-center
+                           gap-3
+                           mb-4"
+                >
+
+                    <div
+                        class="w-8 h-8
+                               rounded-full
+                               bg-[#ef233c]
+                               flex
+                               items-center
+                               justify-center
+                               text-xs
+                               font-bold"
+                    >
+                        4
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            Seus dados
+                        </h3>
+
+                        <p class="text-xs text-zinc-500">
+                            Precisamos dessas informações para confirmar sua visita.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label
+                            class="block
+                                   text-xs
+                                   text-zinc-500
+                                   mb-2"
+                        >
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="bookingName"
+                            placeholder="João Silva"
+                            class="booking-input"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label
+                            class="block
+                                   text-xs
+                                   text-zinc-500
+                                   mb-2"
+                        >
+                            WhatsApp
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="bookingPhone"
+                            placeholder="(61) 99999-9999"
+                            class="booking-input"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESUMO -->
+
+            <div
+                id="bookingSummary"
+                class="hidden
+                       mb-6
+                       p-5
+                       rounded-2xl
+                       bg-white/[0.03]
+                       border border-white/10"
+            >
+
+                <div
+                    class="flex
+                           items-center
+                           gap-2
+                           text-xs
+                           text-zinc-500
+                           uppercase
+                           tracking-widest
+                           mb-3"
+                >
+
+                    <iconify-icon
+                        icon="lucide:clipboard-check"
+                    ></iconify-icon>
+
+                    Resumo da visita
+
+                </div>
+
+
+                <div
+                    id="summaryContent"
+                    class="text-sm text-zinc-300"
+                ></div>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <button
+                onclick="confirmBooking()"
+                class="w-full
+                       py-4
+                       rounded-xl
+                       bg-[#ef233c]
+                       hover:bg-red-700
+                       text-white
+                       font-bold
+                       uppercase
+                       tracking-wider
+                       text-sm
+                       transition-all
+                       shadow-lg
+                       shadow-red-600/20
+                       flex
+                       items-center
+                       justify-center
+                       gap-2"
+            >
+
+                <iconify-icon
+                    icon="lucide:calendar-check"
+                ></iconify-icon>
+
+                Confirmar Agendamento
+
+            </button>
+
+
+            <p
+                class="text-[10px]
+                       text-zinc-600
+                       text-center
+                       mt-4"
+            >
+                Ao confirmar, nossa equipe poderá entrar em contato para validar os detalhes da visita.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             SUCESSO
+        ====================================================== -->
+
+        <div
+            id="bookingSuccess"
+            class="hidden
+                   p-8
+                   md:p-12
+                   text-center"
+        >
+
+            <div
+                class="success-animation
+                       w-20 h-20
+                       mx-auto
+                       rounded-full
+                       bg-emerald-500/10
+                       border
+                       border-emerald-500/30
+                       flex
+                       items-center
+                       justify-center
+                       mb-6"
+            >
+
+                <iconify-icon
+                    icon="lucide:check"
+                    class="text-emerald-400 text-4xl"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div
+                class="text-xs
+                       uppercase
+                       tracking-[0.2em]
+                       text-emerald-400
+                       font-bold
+                       mb-3"
+            >
+                Agendamento realizado
+            </div>
+
+
+            <h2
+                class="text-3xl
+                       font-bold
+                       font-manrope
+                       mb-3"
+            >
+                Visita confirmada!
+            </h2>
+
+
+            <p
+                class="text-zinc-400
+                       text-sm
+                       max-w-md
+                       mx-auto
+                       mb-7"
+            >
+                Seu pedido de visita foi registrado com sucesso.
+            </p>
+
+
+            <div
+                id="successDetails"
+                class="text-left
+                       bg-white/[0.03]
+                       border border-white/10
+                       rounded-2xl
+                       p-5
+                       mb-7"
+            ></div>
+
+
+            <div class="flex flex-col sm:flex-row gap-3">
+
+                <button
+                    onclick="sendBookingWhatsApp()"
+                    class="flex-1
+                           py-3.5
+                           rounded-xl
+                           bg-emerald-600
+                           hover:bg-emerald-700
+                           text-white
+                           font-bold
+                           text-sm
+                           transition-all
+                           flex
+                           items-center
+                           justify-center
+                           gap-2"
+                >
+
+                    <iconify-icon
+                        icon="lucide:message-circle"
+                    ></iconify-icon>
+
+                    Enviar no WhatsApp
+
+                </button>
+
+
+                <button
+                    onclick="closeBookingModal()"
+                    class="flex-1
+                           py-3.5
+                           rounded-xl
+                           bg-white/5
+                           hover:bg-white/10
+                           border border-white/10
+                           text-white
+                           font-bold
+                           text-sm
+                           transition-all"
+                >
+                    Fechar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =============================================================
+     JAVASCRIPT
+============================================================== -->
+
+<script>
+
+
+/* ================================================================
+   CONFIGURAÇÕES
+================================================================ */
+
+// Número do WhatsApp da imobiliária.
+// Troque pelo número verdadeiro.
+const WHATSAPP_NUMBER = "5561999999999";
+
+
+// Horários disponíveis.
+const AVAILABLE_TIMES = [
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00"
+];
+
+
+// Variáveis do agendamento.
+let selectedTime = "";
+
+let currentBooking = {
+    property: "",
+    date: "",
+    time: "",
+    name: "",
+    phone: ""
+};
+
+
+/* ================================================================
+   DATA MÍNIMA
+================================================================ */
+
+function setMinimumDate() {
+
+    const dateInput =
+        document.getElementById("bookingDate");
+
+    if (!dateInput) return;
+
+
+    const today = new Date();
+
+    const year =
+        today.getFullYear();
+
+    const month =
+        String(today.getMonth() + 1)
+        .padStart(2, "0");
+
+    const day =
+        String(today.getDate())
+        .padStart(2, "0");
+
+
+    const todayFormatted =
+        `${year}-${month}-${day}`;
+
+
+    dateInput.min =
+        todayFormatted;
+
+}
+
+
+setMinimumDate();
+
+
+/* ================================================================
+   ABRIR MODAL
+================================================================ */
+
+function openBookingModal(property = "") {
+
+    const modal =
+        document.getElementById("bookingModal");
+
+
+    modal.classList.add("active");
+
+    document.body.classList.add("modal-open");
+
+
+    // Resetar tela de sucesso.
+    document
+        .getElementById("bookingSuccess")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("bookingFormArea")
+        .classList.remove("hidden");
+
+
+    // Selecionar imóvel automaticamente.
+    const propertySelect =
+        document.getElementById("bookingProperty");
+
+
+    if (property) {
+
+        propertySelect.value =
+            property;
+
+    } else {
+
+        propertySelect.value =
+            "";
+
+    }
+
+
+    selectedTime = "";
+
+    currentBooking = {
+        property: "",
+        date: "",
+        time: "",
+        name: "",
+        phone: ""
+    };
+
+
+    // Limpar data.
+    document.getElementById("bookingDate").value = "";
+
+
+    // Limpar horários.
+    resetTimeSlots();
+
+
+    // Atualizar resumo.
+    updateSummary();
+
+
+    // Pequeno delay para evitar problema de foco.
+    setTimeout(() => {
+
+        if (property) {
+
+            propertySelect.focus();
+
+        }
+
+    }, 100);
+
+}
+
+
+/* ================================================================
+   FECHAR MODAL
+================================================================ */
+
+function closeBookingModal() {
+
+    const modal =
+        document.getElementById("bookingModal");
+
+
+    modal.classList.remove("active");
+
+    document.body.classList.remove("modal-open");
+
+}
+
+
+/* ================================================================
+   FECHAR CLICANDO NO FUNDO
+================================================================ */
+
+document
+    .getElementById("bookingModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+
+            closeBookingModal();
+
+        }
+
+    });
+
+
+/* ================================================================
+   ESC PARA FECHAR
+================================================================ */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            document
+                .getElementById("bookingModal")
+                .classList
+                .contains("active")
+        ) {
+
+            closeBookingModal();
+
+        }
+
+    }
+);
+
+
+/* ================================================================
+   ATUALIZAR IMÓVEL
+================================================================ */
+
+function updateBookingProperty() {
+
+    const property =
+        document
+            .getElementById("bookingProperty")
+            .value;
+
+
+    currentBooking.property =
+        property;
+
+
+    updateSummary();
+
+}
+
+
+/* ================================================================
+   RESETAR HORÁRIOS
+================================================================ */
+
+function resetTimeSlots() {
+
+    const container =
+        document.getElementById("timeSlots");
+
+
+    container.innerHTML = `
+        <div
+            class="col-span-full
+                   text-sm
+                   text-zinc-500
+                   py-4
+                   text-center
+                   border
+                   border-dashed
+                   border-white/10
+                   rounded-xl"
+        >
+            Primeiro selecione uma data.
+        </div>
+    `;
+
+}
+
+
+/* ================================================================
+   VERIFICAR HORÁRIOS
+================================================================ */
+
+function updateAvailableTimes() {
+
+    const date =
+        document
+            .getElementById("bookingDate")
+            .value;
+
+
+    currentBooking.date =
+        date;
+
+
+    selectedTime = "";
+
+
+    const container =
+        document.getElementById("timeSlots");
+
+
+    if (!date) {
+
+        resetTimeSlots();
+
+        updateSummary();
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    AVAILABLE_TIMES.forEach(
+        function(time) {
+
+            const button =
+                document.createElement("button");
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "time-button";
+
+
+            button.textContent =
+                time;
+
+
+            button.onclick =
+                function() {
+
+                    selectTime(
+                        time,
+                        button
+                    );
+
+                };
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    updateSummary();
+
+}
+
+
+/* ================================================================
+   SELECIONAR HORÁRIO
+================================================================ */
+
+function selectTime(
+    time,
+    button
+) {
+
+    selectedTime =
+        time;
+
+
+    currentBooking.time =
+        time;
+
+
+    // Remover seleção anterior.
+    document
+        .querySelectorAll(".time-button")
+        .forEach(
+            function(btn) {
+
+                btn.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+    // Adicionar seleção.
+    button.classList.add(
+        "selected"
+    );
+
+
+    updateSummary();
+
+}
+
+
+/* ================================================================
+   FORMATAR DATA
+================================================================ */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+
+    const parts =
+        dateString.split("-");
+
+
+    if (parts.length !== 3) {
+        return dateString;
+    }
+
+
+    const year =
+        parts[0];
+
+    const month =
+        parts[1];
+
+    const day =
+        parts[2];
+
+
+    return `${day}/${month}/${year}`;
+
+}
+
+
+/* ================================================================
+   ATUALIZAR RESUMO
+================================================================ */
+
+function updateSummary() {
+
+    const property =
+        document
+            .getElementById("bookingProperty")
+            .value;
+
+
+    const date =
+        document
+            .getElementById("bookingDate")
+            .value;
+
+
+    const summary =
+        document.getElementById(
+            "bookingSummary"
+        );
+
+
+    const content =
+        document.getElementById(
+            "summaryContent"
+        );
+
+
+    if (
+        !property &&
+        !date &&
+        !selectedTime
+    ) {
+
+        summary.classList.add(
+            "hidden"
+        );
+
+        return;
+
+    }
+
+
+    summary.classList.remove(
+        "hidden"
+    );
+
+
+    content.innerHTML = `
+
+        <div class="space-y-2">
+
+            <div class="flex justify-between gap-4">
+
+                <span class="text-zinc-500">
+                    Imóvel
+                </span>
+
+                <strong class="text-white text-right">
+                    ${property || "Não selecionado"}
+                </strong>
+
+            </div>
+
+
+            <div class="flex justify-between gap-4">
+
+                <span class="text-zinc-500">
+                    Data
+                </span>
+
+                <strong class="text-white">
+                    ${date ? formatDate(date) : "Não selecionada"}
+                </strong>
+
+            </div>
+
+
+            <div class="flex justify-between gap-4">
+
+                <span class="text-zinc-500">
+                    Horário
+                </span>
+
+                <strong class="text-white">
+                    ${selectedTime || "Não selecionado"}
+                </strong>
+
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+/* ================================================================
+   CONFIRMAR AGENDAMENTO
+================================================================ */
+
+function confirmBooking() {
+
+    const property =
+        document
+            .getElementById("bookingProperty")
+            .value;
+
+
+    const date =
+        document
+            .getElementById("bookingDate")
+            .value;
+
+
+    const name =
+        document
+            .getElementById("bookingName")
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById("bookingPhone")
+            .value
+            .trim();
+
+
+    /* ------------------------------------------------------------
+       VALIDAÇÕES
+    ------------------------------------------------------------ */
+
+    if (!property) {
+
+        showBookingAlert(
+            "Escolha o imóvel que deseja visitar."
+        );
+
+        return;
+
+    }
+
+
+    if (!date) {
+
+        showBookingAlert(
+            "Escolha uma data para a visita."
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedTime) {
+
+        showBookingAlert(
+            "Escolha um horário disponível."
+        );
+
+        return;
+
+    }
+
+
+    if (!name) {
+
+        showBookingAlert(
+            "Digite seu nome completo."
+        );
+
+        return;
+
+    }
+
+
+    if (!phone) {
+
+        showBookingAlert(
+            "Digite seu WhatsApp."
+        );
+
+        return;
+
+    }
+
+
+    /* ------------------------------------------------------------
+       SALVAR DADOS
+    ------------------------------------------------------------ */
+
+    currentBooking = {
+
+        property:
+            property,
+
+        date:
+            date,
+
+        time:
+            selectedTime,
+
+        name:
+            name,
+
+        phone:
+            phone
+
+    };
+
+
+    /*
+       Salva localmente no navegador.
+
+       IMPORTANTE:
+       Isso é apenas uma demonstração/front-end.
+       Para uma versão profissional, conectaremos
+       esse processo a um banco de dados.
+    */
+
+    const savedBookings =
+        JSON.parse(
+            localStorage.getItem(
+                "vannutPrimeBookings"
+            ) || "[]"
+        );
+
+
+    savedBookings.push({
+
+        ...currentBooking,
+
+        createdAt:
+            new Date().toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        "vannutPrimeBookings",
+        JSON.stringify(
+            savedBookings
+        )
+    );
+
+
+    /* ------------------------------------------------------------
+       MOSTRAR SUCESSO
+    ------------------------------------------------------------ */
+
+    showBookingSuccess();
+
+}
+
+
+/* ================================================================
+   ALERTA DO AGENDAMENTO
+================================================================ */
+
+function showBookingAlert(message) {
+
+    // Utilizamos um pequeno aviso visual.
+    // Não usamos alert() para manter o visual do site.
+
+    const oldAlert =
+        document.getElementById(
+            "bookingAlert"
+        );
+
+
+    if (oldAlert) {
+
+        oldAlert.remove();
+
+    }
+
+
+    const alertBox =
+        document.createElement(
+            "div"
+        );
+
+
+    alertBox.id =
+        "bookingAlert";
+
+
+    alertBox.className =
+        `
+        fixed
+        top-6
+        right-6
+        z-[200]
+        max-w-sm
+        bg-zinc-900
+        border
+        border-red-500/30
+        rounded-xl
+        shadow-2xl
+        px-5
+        py-4
+        flex
+        items-start
+        gap-3
+        modal-animation
+        `;
+
+
+    alertBox.innerHTML = `
+
+        <iconify-icon
+            icon="lucide:alert-circle"
+            class="text-[#ef233c] text-xl flex-shrink-0"
+        ></iconify-icon>
+
+        <div>
+
+            <div class="font-bold text-sm text-white mb-1">
+                Atenção
+            </div>
+
+            <div class="text-xs text-zinc-400">
+                ${message}
+            </div>
+
+        </div>
+    `;
+
+
+    document.body.appendChild(
+        alertBox
+    );
+
+
+    setTimeout(
+        function() {
+
+            alertBox.remove();
+
+        },
+        3500
+    );
+
+}
+
+
+/* ================================================================
+   MOSTRAR SUCESSO
+================================================================ */
+
+function showBookingSuccess() {
+
+    const formArea =
+        document.getElementById(
+            "bookingFormArea"
+        );
+
+
+    const successArea =
+        document.getElementById(
+            "bookingSuccess"
+        );
+
+
+    const successDetails =
+        document.getElementById(
+            "successDetails"
+        );
+
+
+    formArea.classList.add(
+        "hidden"
+    );
+
+
+    successArea.classList.remove(
+        "hidden"
+    );
+
+
+    successDetails.innerHTML = `
+
+        <div class="space-y-4">
+
+            <div>
+
+                <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
+                    Imóvel
+                </div>
+
+                <div class="font-bold text-white">
+                    ${currentBooking.property}
+                </div>
+
+            </div>
+
+
+            <div class="grid grid-cols-2 gap-4">
+
+                <div>
+
+                    <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
+                        Data
+                    </div>
+
+                    <div class="font-medium text-zinc-300">
+                        ${formatDate(currentBooking.date)}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
+                        Horário
+                    </div>
+
+                    <div class="font-medium text-zinc-300">
+                        ${currentBooking.time}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
+                    Cliente
+                </div>
+
+                <div class="font-medium text-zinc-300">
+                    ${currentBooking.name}
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
+                    WhatsApp
+                </div>
+
+                <div class="font-medium text-zinc-300">
+                    ${currentBooking.phone}
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ================================================================
+   WHATSAPP
+================================================================ */
+
+function sendBookingWhatsApp() {
+
+    const message =
+
+        `Olá! Gostaria de confirmar uma visita imobiliária.%0A%0A` +
+
+        `🏠 Imóvel: ${currentBooking.property}%0A` +
+
+        `📅 Data: ${formatDate(currentBooking.date)}%0A` +
+
+        `⏰ Horário: ${currentBooking.time}%0A` +
+
+        `👤 Cliente: ${currentBooking.name}%0A` +
+
+        `📱 WhatsApp: ${currentBooking.phone}`;
+
+
+    const whatsappURL =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/* ================================================================
+   FORMULÁRIO DE CONTATO
+================================================================ */
+
+function submitContactForm(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document
+            .getElementById("contactName")
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById("contactPhone")
+            .value
+            .trim();
+
+
+    const email =
+        document
+            .getElementById("contactEmail")
+            .value
+            .trim();
+
+
+    const type =
+        document
+            .getElementById("contactType")
+            .value;
+
+
+    const message =
+        document
+            .getElementById("contactMessage")
+            .value
+            .trim();
+
+
+    const whatsappMessage =
+
+        `Olá! Entrei em contato pelo site da Vannut Prime.%0A%0A` +
+
+        `👤 Nome: ${name}%0A` +
+
+        `📱 WhatsApp: ${phone}%0A` +
+
+        `📧 E-mail: ${email}%0A` +
+
+        `🏠 Interesse: ${type}%0A` +
+
+        `💬 Mensagem: ${message || "Não informada"}`;
+
+
+    const whatsappURL =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+
+    showBookingAlert(
+        "Abrindo o WhatsApp para finalizar seu contato."
+    );
+
+}
+
+
+/* ================================================================
+   MÁSCARA SIMPLES DE WHATSAPP
+================================================================ */
+
+document
+    .getElementById("bookingPhone")
+    .addEventListener(
+        "input",
+        function(event) {
+
+            let value =
+                event.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 11);
+
+
+            if (value.length <= 2) {
+
+                event.target.value =
+                    value
+                        ? `(${value}`
+                        : "";
+
+            }
+
+            else if (value.length <= 7) {
+
+                event.target.value =
+                    `(${value.slice(0,2)}) ${value.slice(2)}`;
+
+            }
+
+            else {
+
+                event.target.value =
+                    `(${value.slice(0,2)}) ${value.slice(2,7)}-${value.slice(7)}`;
+
+            }
+
+        }
+    );
+
+
+/* ================================================================
+   MÁSCARA CONTATO
+================================================================ */
+
+document
+    .getElementById("contactPhone")
+    .addEventListener(
+        "input",
+        function(event) {
+
+            let value =
+                event.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 11);
+
+
+            if (value.length <= 2) {
+
+                event.target.value =
+                    value
+                        ? `(${value}`
+                        : "";
+
+            }
+
+            else if (value.length <= 7) {
+
+                event.target.value =
+                    `(${value.slice(0,2)}) ${value.slice(2)}`;
+
+            }
+
+            else {
+
+                event.target.value =
+                    `(${value.slice(0,2)}) ${value.slice(2,7)}-${value.slice(7)}`;
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>
