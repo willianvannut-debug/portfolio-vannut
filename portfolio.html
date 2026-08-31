@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vannut | Engenharia de Conversão</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+    /* ==========================================
+       1. FUNDAÇÃO E VARIÁVEIS
+       ========================================== */
+    :root {
+        --font-main: 'Montserrat', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+        --accent-yellow: #FFB800;
+        --accent-orange: #FF5E00;
+        --accent-blue: #38bdf8;
+        --accent-red: #E60000;
+        --success-green: #62c073;
+        --bg-dark: #0a0a0c;
+        --card-bg: #121318;
+        --text-muted: #a1a1aa;
+        --border-color: rgba(255, 255, 255, 0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-main); background-color: var(--bg-dark); color: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+    /* ==========================================
+       2. HERO PORTFOLIO & ROTATIVE TEXT
+       ========================================== */
+    .hero-portfolio { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: var(--bg-dark); background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; background-position: center center; overflow: hidden; padding: 0 2rem; }
+    .hero-portfolio::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, var(--bg-dark) 0%, transparent 100%); z-index: 0; }
+    
+    .bg-watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(6rem, 20vw, 25rem);
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.02);
+        white-space: nowrap;
+        z-index: 1;
+        pointer-events: none;
+        user-select: none;
+        letter-spacing: -0.03em;
+    }
+    
+    .title-wrapper { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+    .top-labels { display: flex; justify-content: space-between; width: 100%; padding: 0 5px; margin-bottom: -15px; font-weight: 700; letter-spacing: 2px; color: #ffffff; z-index: 3; }
+    .massive-title { font-size: clamp(3.5rem, 11vw, 12rem); font-weight: 900; line-height: 0.85; letter-spacing: -0.05em; text-transform: uppercase; display: flex; align-items: center; flex-wrap: wrap; justify-content: center; text-align: center; }
+    .text-white { color: #ffffff; }
+    .text-yellow { color: var(--accent-yellow); margin-left: -5px; }
+
+    .dynamic-subtitle { font-size: clamp(1rem, 3vw, 1.8rem); font-weight: 700; margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #fff; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    .rotate-container { display: inline-flex; overflow: hidden; height: 1.2em; color: var(--accent-yellow); }
+    .rotate-word { display: inline-block; white-space: nowrap; transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s ease; }
+    .rotate-word.out { transform: translateY(-100%); opacity: 0; }
+    .rotate-word.in { transform: translateY(100%); opacity: 0; transition: none; }
+
+    /* ==========================================
+       3. PROVA SOCIAL (MÉTRICAS)
+       ========================================== */
+    .social-proof { padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: linear-gradient(90deg, rgba(255, 184, 0, 0.03) 0%, transparent 100%); }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+    .metric-number { font-size: 3.5rem; font-weight: 900; color: var(--accent-yellow); line-height: 1; margin-bottom: 0.5rem; }
+    .metric-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+
+    /* ==========================================
+       4. COVERFLOW 3D DE CASOS
+       ========================================== */
+    .dossier-section { padding: 100px 0 80px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; background: radial-gradient(circle at center, #121216 0%, #0a0a0c 100%); }
+    .section-title.white-title { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 900; text-transform: uppercase; text-align: center; color: #FFFFFF; }
+    .showcase-hint { text-align: center; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; max-width: 750px; margin: 0 auto 3.5rem auto; }
+
+    .cf-wrapper { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; height: 520px; display: flex; justify-content: center; align-items: center; perspective: 1400px; user-select: none; }
+    .cf-track { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; transform-style: preserve-3d; }
+    
+    .cf-card {
+        position: absolute;
+        width: 380px;
+        height: 440px;
+        background: #141417;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.85);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 700ms cubic-bezier(0.25, 1, 0.5, 1), opacity 700ms ease, filter 700ms ease;
+    }
+
+    body.elementor-editor-active .cf-track {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+        gap: 2rem !important;
+        position: relative !important;
+        height: auto !important;
+        transform: none !important;
+    }
+    body.elementor-editor-active .cf-card {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+        margin: 0 auto !important;
+    }
+    body.elementor-editor-active .cf-arrow,
+    body.elementor-editor-active .cf-dots {
+        display: none !important;
+    }
+
+    .cf-card-img-container {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background: #1a1a1f;
+    }
+    .cf-card-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+    .cf-card:hover .cf-card-img-container img { transform: scale(1.05); }
+    .cf-card-img-container::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 40%, rgba(20,20,23,1) 100%);
+    }
+
+    .cf-card-body {
+        padding: 12px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .cf-card-niche { font-size: 0.7rem; color: var(--accent-yellow); text-transform: uppercase; letter-spacing: 2px; font-weight: 900; display: block; margin-bottom: 2px; }
+    .cf-card-title { font-size: 1.4rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 6px; }
+    .cf-card-desc { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 14px; line-height: 1.3; }
+
+    .btn-case {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--accent-yellow);
+        color: #000;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 0.78rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        box-shadow: 0 4px 12px rgba(255, 184, 0, 0.2);
+    }
+    .btn-case:hover { background-color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 184, 0, 0.4); }
+
+    .cf-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(18,18,22,0.9);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+    .cf-arrow:hover { background: var(--accent-yellow); color: #000; border-color: var(--accent-yellow); transform: translateY(-50%) scale(1.1); }
+    .cf-prev { left: 20px; }
+    .cf-next { right: 20px; }
+
+    .cf-dots { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
+    .cf-dot {
+        height: 6px;
+        width: 6px;
+        border-radius: 9999px;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        cursor: pointer;
+        transition: all 300ms ease;
+    }
+    .cf-dot.active { width: 32px; background: var(--accent-yellow); box-shadow: 0 0 12px rgba(255,184,0,0.6); }
+
+    /* ==========================================
+       5. O QUE PODE EXISTIR
+       ========================================== */
+    .features {
+        background: #0b0b0d;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 120px 0;
+    }
+    .section-header {
+        text-align: center;
+        max-width: 750px;
+        margin: 0 auto 60px;
+    }
+    .section-label {
+        color: var(--accent-yellow);
+        font-family: var(--font-mono);
+        font-size: .7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .feature {
+        padding: 35px;
+        border: 1px solid var(--border-color);
+        background: rgba(255,255,255,.015);
+        border-radius: 16px;
+    }
+    .feature-number {
+        color: var(--accent-yellow);
+        font-size: 2.8rem;
+        font-weight: 900;
+    }
+    .feature h3 {
+        margin: 15px 0 10px;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        color: #fff;
+    }
+    .feature p {
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-size: .9rem;
+    }
+    .tags {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .tag {
+        padding: 6px 10px;
+        border: 1px solid rgba(255,184,0,.2);
+        color: var(--accent-yellow);
+        border-radius: 5px;
+        font-size: .65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    /* ==========================================
+       6. ESCOPO / PROTEÇÃO (ADICIONADO)
+       ========================================== */
+    .scope {
+        background: #0b0b0d;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 120px 0;
+    }
+    .scope-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+    .scope-card {
+        padding: 35px;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        background: var(--card-bg);
+    }
+    .scope-card.yes {
+        border-color: rgba(98,192,115,.25);
+    }
+    .scope-card.no {
+        border-color: rgba(255,94,0,.25);
+    }
+    .scope-card h3 {
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+    }
+    .scope-card.yes h3 {
+        color: var(--success-green);
+    }
+    .scope-card.no h3 {
+        color: var(--accent-orange);
+    }
+    .scope-card ul {
+        list-style: none;
+    }
+    .scope-card li {
+        color: var(--text-muted);
+        margin-bottom: 13px;
+        line-height: 1.5;
+        font-size: .9rem;
+    }
+    .scope-card li::before {
+        content: "→";
+        margin-right: 10px;
+        color: var(--accent-yellow);
+    }
+
+    /* ==========================================
+       7. FAQ (ADICIONADO)
+       ========================================== */
+    .faq-section {
+        padding: 120px 0;
+    }
+    .faq {
+        max-width: 800px;
+        margin: auto;
+    }
+    .faq-item {
+        border-bottom: 1px solid var(--border-color);
+    }
+    .faq-question {
+        width: 100%;
+        padding: 22px 0;
+        background: none;
+        border: none;
+        color: white;
+        text-align: left;
+        font-family: var(--font-main);
+        font-size: 1rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .faq-answer {
+        display: none;
+        color: var(--text-muted);
+        line-height: 1.7;
+        padding: 0 0 22px;
+        font-size: .9rem;
+    }
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+    .faq-item.active .faq-question {
+        color: var(--accent-yellow);
+    }
+
+    /* ==========================================
+       8. COMO EU PENSO
+       ========================================== */
+    .methodology { padding: 120px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; background: #0a0a0c; }
+    .doctrine-header-wrapper { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; }
+    .sparkle-line-container { position: relative; width: 100%; max-width: 500px; height: 20px; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
+    .sparkle-grad-1 { position: absolute; inset-x: 0; top: 0; height: 2px; width: 100%; background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent); filter: blur(2px); }
+    .sparkle-grad-2 { position: absolute; inset-x: 0; top: 0; height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent); }
+    .sparkle-grad-3 { position: absolute; inset-x: 40px; top: 0; height: 4px; width: calc(100% - 80px); background: linear-gradient(90deg, transparent, var(--accent-orange), transparent); filter: blur(3px); }
+    .sparkle-grad-4 { position: absolute; inset-x: 40px; top: 0; height: 1px; width: calc(100% - 80px); background: linear-gradient(90deg, transparent, var(--accent-orange), transparent); }
+    .doctrine-title { font-size: 2.8rem; font-weight: 900; text-transform: uppercase; text-align: center; color: #FFFFFF !important; letter-spacing: -0.02em; margin: 0; }
+    
+    .method-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+    .method-card { background: rgba(15, 15, 17, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2.5rem; border-radius: 16px; transition: transform 0.3s ease, border-color 0.3s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .method-card:hover { border-color: var(--accent-yellow); transform: translateY(-5px); }
+    .method-number { font-size: 3rem; font-weight: 900; line-height: 0.8; margin-bottom: 1.2rem; display: inline-block; color: var(--accent-yellow); }
+    .method-card h3 { font-size: 1.35rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: #fff; }
+    .method-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+    .method-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.2rem; }
+    .method-tag { background: rgba(255, 184, 0, 0.08); border: 1px solid rgba(255, 184, 0, 0.2); color: var(--accent-yellow); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ==========================================
+       9. MODAL DE DETALHES
+       ========================================== */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(5,5,7,0.88); backdrop-filter: blur(10px); z-index: 99999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px; }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-box { background: linear-gradient(145deg, #16161a 0%, #0d0d10 100%); border: 1px solid rgba(255, 184, 0, 0.35); border-radius: 24px; width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 40px 90px rgba(0,0,0,0.95); transform: translateY(20px); transition: transform 0.3s ease; }
+    .modal-overlay.active .modal-box { transform: translateY(0); }
+    .modal-img-banner { position: relative; width: 100%; height: 220px; overflow: hidden; border-top-left-radius: 24px; border-top-right-radius: 24px; background: #000; }
+    .modal-img-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .modal-img-banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(22,22,26,0.1) 40%, #16161a 100%); }
+    .modal-content-inner { padding: 10px 40px 40px 40px; }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1.4rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10; backdrop-filter: blur(5px); }
+    .modal-close:hover { background: var(--accent-red); border-color: var(--accent-red); }
+    .modal-niche { font-size: 0.75rem; color: var(--accent-yellow); text-transform: uppercase; font-weight: 900; letter-spacing: 2px; display: block; margin-bottom: 4px; }
+    .modal-title { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 25px; color: #fff; letter-spacing: -0.02em; }
+    
+    .modal-block { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 20px; margin-bottom: 18px; }
+    .modal-label-problem { font-size: 0.8rem; color: var(--accent-orange); text-transform: uppercase; font-weight: 900; letter-spacing: 1.5px; display: block; margin-bottom: 8px; }
+    .modal-label-solution { font-size: 0.8rem; color: var(--accent-blue); text-transform: uppercase; font-weight: 900; letter-spacing: 1.5px; display: block; margin-bottom: 8px; }
+    
+    .modal-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .modal-text strong { color: #ffffff; font-weight: 700; }
+    
+    .modal-result { background: rgba(255, 184, 0, 0.06); border: 1px solid rgba(255, 184, 0, 0.2); padding: 22px; border-left: 4px solid var(--accent-yellow); border-radius: 0 12px 12px 0; margin-top: 25px; }
+    .modal-result .modal-label { color: var(--accent-yellow); font-size: 0.8rem; text-transform: uppercase; font-weight: 900; letter-spacing: 1.5px; display: block; margin-bottom: 8px; }
+    .modal-result .modal-text { color: #fff; font-weight: 600; font-size: 1.02rem; }
+
+    /* Estilos do Widget Interno do Modal */
+    .v5-widget-inner { background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-top: 20px; }
+    .status-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(98, 192, 115, 0.08); border: 1px solid rgba(98, 192, 115, 0.2); padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--success-green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+    .pulse-dot { width: 6px; height: 6px; background-color: var(--success-green); border-radius: 50%; box-shadow: 0 0 8px var(--success-green); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+    .form-group { margin-bottom: 1rem; text-align: left; }
+    .form-label { display: block; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .form-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.75rem 0.9rem; color: #ffffff; font-family: var(--font-main); font-size: 0.9rem; outline: none; }
+    .form-input:focus { border-color: var(--success-green); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .btn-check { width: 100%; background: var(--success-green); color: #000; border: none; border-radius: 6px; padding: 0.9rem; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-top: 0.5rem; }
+    .btn-check:hover { background: #fff; }
+
+    .loader-overlay-modal { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; text-align: center; }
+    .result-screen-modal { display: none; }
+
+    /* ==========================================
+       10. CTA FINAL & FOOTER
+       ========================================== */
+    .final-cta { padding: 120px 0; text-align: center; }
+    .cta-box { background: linear-gradient(145deg, #131316 0%, #0a0a0c 100%); border: 1px solid rgba(255, 94, 0, 0.2); padding: 5rem 2rem; border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
+    .cta-box h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; margin-bottom: 1.5rem; line-height: 1.1; text-transform: uppercase; color: var(--accent-yellow); }
+    .cta-box p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 3rem auto; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; background-color: var(--accent-yellow); color: #000; text-decoration: none; font-weight: 900; font-size: 1.1rem; padding: 1.2rem 3rem; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(255, 184, 0, 0.2); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 184, 0, 0.4); background-color: #fff; }
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; color: #555; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Responsividade */
+    @media (max-width: 900px) {
+        .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .method-grid, .features-grid, .scope-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        .massive-title { flex-direction: column; }
+        .text-yellow { margin-left: 0; }
+        .top-labels { display: none; }
+        .cf-card { width: 300px; height: 420px; }
+        .cf-prev { left: 5px; }
+        .cf-next { right: 5px; }
+        .modal-box { padding: 0; }
+        .modal-content-inner { padding: 10px 20px 20px 20px; }
+    }
+    @media (max-width: 480px) {
+        .metrics-grid { grid-template-columns: 1fr; }
+        .cf-card { width: 260px; height: 400px; }
+    }
+</style>
+</head>
+<body>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div id="main-content">
+        
+        <!-- HERO -->
+        <main class="hero-portfolio">
+            <div class="bg-watermark">CONVERSÃO</div>
+            <div class="title-wrapper" id="hero-title">
+                <div class="top-labels"><span>ENGENHARIA DE CONVERSÃO</span><span>2026</span></div>
+                <h1 class="massive-title"><span class="text-white">PORT</span><span class="text-yellow">FÓLIO</span></h1>
+                <div class="dynamic-subtitle">
+                    Construída para 
+                    <div class="rotate-container">
+                        <span id="rotating-text" class="rotate-word">estancar a perda de leads.</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- PROVA SOCIAL -->
+        <section class="social-proof">
+            <div class="container metrics-grid">
+                <div><div class="metric-number">0.8s</div><div class="metric-label">ABERTURA IMEDIATA</div></div>
+                <div><div class="metric-number">100%</div><div class="metric-label">DOS LEADS SALVOS</div></div>
+                <div><div class="metric-number">ZERO</div><div class="metric-label">ORÇAMENTO DESPERDIÇADO</div></div>
+                <div><div class="metric-number">100%</div><div class="metric-label">FEITO PARA O SEU NEGÓCIO</div></div>
+            </div>
+        </section>
+        
+        
+
+        <!-- DOSSIÊ DE CASOS -->
+        <section class="dossier-section">
+            <div class="container" style="position:relative; z-index:2;">
+                <h2 class="section-title white-title">projetos e soluções</h2>
+                <p class="showcase-hint">Cada projeto começa com uma necessidade específica de cada negócio em experiências digitais. Explore alguns dos projetos que desenvolvi e veja como transformei objetivos específicos em sites, experiências e funcionalidades pensadas para cada empresa.</p>
+            </div>
+
+            <div class="cf-wrapper" id="cf-wrapper">
+                <button class="cf-arrow cf-prev" id="cf-prev" type="button" aria-label="Anterior">
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                
+                <div class="cf-track" id="cf-track"></div>
+
+                <button class="cf-arrow cf-next" id="cf-next" type="button" aria-label="Próximo">
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+
+            <div class="cf-dots" id="cf-dots"></div>
+        </section>
+
+        <!-- O QUE PODE EXISTIR -->
+        <section class="section features">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">
+                        Mais do que páginas
+                    </div>
+                    <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; text-transform: uppercase; line-height: 1;">
+                        O que pode existir dentro do seu site?
+                    </h2>
+                    <p class="section-description" style="color: var(--text-muted); margin-top: 20px; line-height: 1.7;">
+                        Nem todo projeto precisa das mesmas ferramentas. A ideia é escolher funcionalidades que tenham utilidade para o seu negócio.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature">
+                        <span class="feature-number">01</span>
+                        <h3>Captação de contatos</h3>
+                        <p>Formulários estratégicos, botões de WhatsApp, solicitações de orçamento e outras formas de facilitar o contato com sua empresa.</p>
+                        <div class="tags">
+                            <span class="tag">WhatsApp</span>
+                            <span class="tag">Formulários</span>
+                            <span class="tag">Orçamento</span>
+                        </div>
+                    </div>
+
+                    <div class="feature">
+                        <span class="feature-number">02</span>
+                        <h3>Ferramentas interativas</h3>
+                        <p>Quando fizer sentido, o site pode receber pequenas ferramentas que ajudam o visitante a avançar na jornada.</p>
+                        <div class="tags">
+                            <span class="tag">Simuladores</span>
+                            <span class="tag">Calculadoras</span>
+                            <span class="tag">Consultas</span>
+                        </div>
+                    </div>
+
+                    <div class="feature">
+                        <span class="feature-number">03</span>
+                        <h3>Atendimento mais simples</h3>
+                        <p>O visitante pode encontrar informações importantes sem precisar perguntar tudo para um funcionário.</p>
+                        <div class="tags">
+                            <span class="tag">FAQ</span>
+                            <span class="tag">Agendamento</span>
+                            <span class="tag">Informações</span>
+                        </div>
+                    </div>
+
+                    <div class="feature">
+                        <span class="feature-number">04</span>
+                        <h3>Estrutura profissional</h3>
+                        <p>Layout responsivo, organização das informações, chamadas para ação e uma apresentação compatível com o posicionamento da empresa.</p>
+                        <div class="tags">
+                            <span class="tag">Mobile</span>
+                            <span class="tag">Responsivo</span>
+                            <span class="tag">SEO básico</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ESCOPO DO PROJETO (ADICIONADO) -->
+        <section class="section scope">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">
+                        Escopo do projeto
+                    </div>
+                    <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; text-transform: uppercase; line-height: 1;">
+                        Site profissional,<br>sem complicação desnecessária.
+                    </h2>
+                    <p class="section-description" style="color: var(--text-muted); margin-top: 20px; line-height: 1.7;">
+                        O objetivo é criar uma presença digital profissional e ferramentas que complementem o site — não transformar cada projeto em um sistema empresarial gigante.
+                    </p>
+                </div>
+
+                <div class="scope-grid">
+                    <div class="scope-card yes">
+                        <h3>✓ Faz sentido para o projeto</h3>
+                        <ul>
+                            <li>Sites institucionais profissionais</li>
+                            <li>Landing pages e páginas de campanha</li>
+                            <li>Formulários e captação de leads</li>
+                            <li>Agendamentos simples</li>
+                            <li>Calculadoras e simuladores</li>
+                            <li>Integrações simples com ferramentas externas</li>
+                            <li>Funcionalidades pequenas que complementam o site</li>
+                        </ul>
+                    </div>
+
+                    <div class="scope-card no">
+                        <h3>! Não é o foco</h3>
+                        <ul>
+                            <li>Sistemas empresariais completos</li>
+                            <li>Plataformas com múltiplos níveis de usuários</li>
+                            <li>E-commerces complexos</li>
+                            <li>Sistemas financeiros</li>
+                            <li>Aplicações que exigem infraestrutura própria</li>
+                            <li>Desenvolvimento de SaaS</li>
+                            <li>Projetos que exigem segurança e arquitetura de software avançadas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PERGUNTAS FREQUENTES / FAQ (ADICIONADO) -->
+        <section class="section faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-label">
+                        Perguntas frequentes
+                    </div>
+                    <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; text-transform: uppercase; line-height: 1;">
+                        Antes de começar
+                    </h2>
+                </div>
+
+                <div class="faq">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Vocês trabalham com qualquer tipo de empresa?
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            Sim. O projeto é adaptado ao negócio. Antes de desenvolver, entendemos o objetivo da empresa e definimos uma estrutura adequada para seus clientes.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Todo site precisa ter uma ferramenta?
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            Não. Uma funcionalidade só entra quando existe uma razão para ela estar ali. Um site simples e bem estruturado pode ser muito mais eficiente do que um site cheio de recursos que ninguém utiliza.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Posso pedir uma funcionalidade diferente?
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            Podemos avaliar a ideia. Funcionalidades simples que complementam o site podem fazer parte do projeto. Sistemas complexos, plataformas e aplicações completas precisam de outro tipo de desenvolvimento e não fazem parte do nosso escopo padrão.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            O site funciona no celular?
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            Sim. O projeto é desenvolvido pensando também na experiência de quem acessa pelo celular, que é uma das principais formas de acesso aos sites atualmente.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Quanto custa um projeto?
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            O valor depende da quantidade de páginas, complexidade visual e funcionalidades necessárias. Após entender o projeto, é apresentado um orçamento específico para a empresa.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL DE DETALHES -->
+        <div class="modal-overlay" id="case-modal">
+            <div class="modal-box">
+                <button class="modal-close" id="modal-close">&times;</button>
+                
+                <div class="modal-img-banner">
+                    <img id="modal-img" src="" alt="Capa do Projeto">
+                </div>
+
+                <div class="modal-content-inner">
+                    <span class="modal-niche" id="modal-niche">Nicho</span>
+                    <h3 class="modal-title" id="modal-title">Título do Caso</h3>
+                    
+                    <div class="modal-block">
+                        <span class="modal-label-problem">O Vazamento (Problema)</span>
+                        <p class="modal-text" id="modal-problem">Texto do problema...</p>
+                    </div>
+                    
+                    <div class="modal-block">
+                        <span class="modal-label-solution">A Engenharia (Solução)</span>
+                        <p class="modal-text" id="modal-solution">Texto da solução...</p>
+                    </div>
+
+                    <!-- DEMONSTRAÇÃO INTERATIVA EXCLUSIVA PARA O PROVEDOR DE INTERNET -->
+                    <div id="modal-interactive-demo" style="display:none;">
+                        <div class="modal-block" style="border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.02);">
+                            <span class="modal-label-solution">⚡ Demonstração Prática (Teste ao Vivo)</span>
+                            <p class="modal-text" style="margin-bottom: 1rem;">Experimente abaixo a ferramenta real integrada ao sistema:</p>
+                            
+                            <div class="v5-widget-inner">
+                                <div class="status-chip"><span class="pulse-dot"></span> Verificação de Malha V5</div>
+                                
+                                <div id="modal-form-screen">
+                                    <form id="modal-coverage-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label class="form-label">Seu Nome</label>
+                                                <input type="text" id="m-nome" class="form-input" placeholder="Nome" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">WhatsApp</label>
+                                                <input type="tel" id="m-whatsapp" class="form-input" placeholder="(61) 99999-9999" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label class="form-label">CEP (Qualquer CEP)</label>
+                                                <input type="text" id="m-cep" class="form-input" placeholder="72910-000" maxlength="9" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Número</label>
+                                                <input type="text" id="m-numero" class="form-input" placeholder="Qd 10 Lote 05" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Endereço Detectado</label>
+                                            <input type="text" id="m-endereco-preview" class="form-input" placeholder="Digite o CEP..." readonly style="opacity: 0.7; cursor: not-allowed;">
+                                        </div>
+                                        <button type="submit" class="btn-check">Testar Cobertura Agora ➔</button>
+                                    </form>
+                                </div>
+
+                                <div id="modal-loader-screen" class="loader-overlay-modal">
+                                    <div id="modal-loader-text" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--success-green); font-weight: 800; text-transform: uppercase;">Mapeando portas OLT...</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px; text-transform: uppercase;">Consultando banco de dados via API</div>
+                                </div>
+
+                                <div id="modal-result-success" class="result-screen-modal">
+                                    <div class="result-badge badge-success">✓ 100% Fibra Óptica Ativa</div>
+                                    <p class="modal-text" style="color: #fff; margin-bottom: 1rem;">Endereço verificado com sucesso em nossa malha de dados!</p>
+                                    <div id="m-address-confirmed-box" class="modal-text" style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; font-family: var(--font-mono);"></div>
+                                    <button type="button" class="btn-check" onclick="resetModalForm()" style="background: transparent; border: 1px solid var(--text-muted); color: #fff; font-size: 0.75rem; padding: 0.5rem;">Testar Outro CEP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-result">
+                        <span class="modal-label">O Impacto (Resultado)</span>
+                        <p class="modal-text" id="modal-result">Texto do resultado...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMO EU PENSO -->
+        <section class="methodology">
+            <div class="container doctrine-header-wrapper">
+                <h2 class="doctrine-title">Como Eu Penso</h2>
+                <div class="sparkle-line-container">
+                    <div class="sparkle-grad-1"></div>
+                    <div class="sparkle-grad-2"></div>
+                    <div class="sparkle-grad-3"></div>
+                    <div class="sparkle-grad-4"></div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="method-grid">
+                    <div class="method-card">
+                        <span class="method-number">01</span>
+                        <h3>Cada Negócio É Diferente</h3>
+                        <p>Seu negócio não é igual ao do concorrente. Por isso, antes de criar qualquer página, eu entendo o que sua empresa faz, quem são seus clientes e o que você precisa alcançar. O site é construído a partir dessas necessidades — não de um modelo genérico.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="method-number">02</span>
+                        <h3>Design com Propósito</h3>
+                        <p>Não faço apenas um site bonito. Cada seção, botão e informação tem uma função clara. Eu penso na jornada do visitante para tornar mais fácil encontrar o que ele procura e entrar em contato direto com sua empresa.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="method-number">03</span>
+                        <h3>Funcionalidades que Fazem Sentido</h3>
+                        <p>Seu site pode fazer mais do que apenas apresentar sua empresa. Quando uma funcionalidade melhora a experiência do cliente e facilita o fechamento, eu a desenvolvo sob medida para o seu ecossistema.</p>
+                        <div class="method-tags">
+                            <span class="method-tag">Teste de Cobertura</span>
+                            <span class="method-tag">Agendamento</span>
+                            <span class="method-tag">Simuladores</span>
+                            <span class="method-tag">Orçamentos</span>
+                            <span class="method-tag">Integrações</span>
+                        </div>
+                    </div>
+                    <div class="method-card">
+                        <span class="method-number">04</span>
+                        <h3>Feito para Evoluir</h3>
+                        <p>O projeto não termina quando vai ao ar. Eu crio uma estrutura preparada para receber melhorias conforme sua empresa cresce. Novas páginas, ferramentas e integrações podem ser adicionadas perfeitamente quando fizerem sentido.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section id="cta-final" class="final-cta container">
+            <div class="cta-box">
+                <h2>Seu site pode estar perdendo clientes sem você perceber</h2>
+                <p>Um site bonito não basta. Se o visitante não encontrar rapidamente o que procura, ele vai procurar o concorrente. Eu crio estruturas rápidas, claras e pensadas para transformar visitantes em contatos reais para o seu negócio.</p>
+                <a href="#" class="btn-primary">Análise gratuita do seu site</a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                &copy; 2026 Vannut Tech. Operações de Alta Performance.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    (function initVannutPortfolio() {
+        function iniciarTudo() {
+            // --- 1. TEXTO ROTATIVO DO HERO ---
+            const words = ['estancar a perda de leads.', 'zerar o custo da latência.', 'converter leads.', 'dominar o mercado.'];
+            const wordEl = document.getElementById('rotating-text');
+            if (wordEl && !wordEl.dataset.initialized) {
+                wordEl.dataset.initialized = "true";
+                let wordIndex = 0;
+                setInterval(() => {
+                    wordEl.classList.add('out');
+                    setTimeout(() => {
+                        wordIndex = (wordIndex + 1) % words.length;
+                        wordEl.textContent = words[wordIndex];
+                        wordEl.classList.remove('out');
+                        wordEl.classList.add('in');
+                        void wordEl.offsetWidth;
+                        setTimeout(() => { wordEl.classList.remove('in'); }, 50);
+                    }, 500);
+                }, 2500);
+            }
+
+            // --- 2. COVERFLOW 3D BLINDADO ---
+            const track = document.getElementById('cf-track');
+            const wrapper = document.getElementById('cf-wrapper');
+            const dotsContainer = document.getElementById('cf-dots');
+            const btnPrev = document.getElementById('cf-prev');
+            const btnNext = document.getElementById('cf-next');
+
+            if (track && wrapper && !track.dataset.initialized) {
+                track.dataset.initialized = "true";
+
+                const casesData = [
+                    {
+                        niche: "PROVEDOR DE INTERNET",
+                        title: "TESTE DE COBERTURA",
+                        image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80",
+                        shortDesc: "Permita que os visitantes descubram em poucos segundos se sua empresa atende o endereço dele.",
+                        problem: "O provedor investe pesado em <strong>tráfego pago</strong> para atrair novos assinantes na região. Porém, o cliente entra no site, precisa digitar o endereço manualmente ou chamar no WhatsApp apenas para descobrir se a fibra passa na rua dele. Essa fricção gera <strong>abandono em massa</strong>.",
+                        solution: "Desenvolvimento de um <strong>Módulo de Teste de Cobertura Inteligente</strong> acoplado a uma vitrine estática de altíssima velocidade. O visitante digita o CEP e número, cruza dados em milissegundos, exibe os planos disponíveis ou captura a geolocalização para expansão futura via <strong>Notion e n8n</strong>.",
+                        result: "Zera o tempo de atendimento desperdiçado com viabilidades manuais. O lead chega para o comercial 100% qualificado e com a cobertura garantida.",
+                        isInteractive: true
+                    },
+                    {
+                        niche: "SAÚDE & ESTÉTICA",
+                        title: "CLÍNICA DE ALTO PADRÃO",
+                        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80",
+                        shortDesc: "Funil de conversão ultrarrápido com agendamento direto e triagem automática no WhatsApp.",
+                        problem: "Anúncios no Instagram rodando para um site WordPress que demorava 6 segundos para abrir no 4G. Pacientes de alto poder aquisitivo abandonavam a página pela <strong>tela em branco</strong>.",
+                        solution: "Bypass de banco de dados SQL. Criação de uma <strong>vitrine estática imune a quedas</strong>. O agendamento foi integrado com webhooks, disparando o fluxo de triagem diretamente para a recepção sem depender de plugins pesados.",
+                        result: "Zero abandono por latência mobile. O mesmo orçamento gerou o triplo de agendamentos validados no WhatsApp.",
+                        isInteractive: false
+                    },
+                    {
+                        niche: "MERCADO IMOBILIÁRIO",
+                        title: "OPERAÇÃO DE CORRETORES",
+                        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
+                        shortDesc: "Sistema inteligente de qualificação e distribuição de leads de alto padrão para corretores.",
+                        problem: "Leads interessados em imóveis de alto padrão preenchiam o formulário, mas os dados se perdiam no email. Até o corretor ligar, o cliente já <strong>negociava com a concorrência</strong>.",
+                        solution: "Página de conversão de velocidade extrema acoplada a um <strong>nó lógico inteligente</strong>. O sistema capta o lead, qualifica a renda e distribui automaticamente para o celular do corretor disponível no momento exato.",
+                        result: "Velocidade de contato despencou de 4h para 10 segundos. Taxa de conversão em visitas presenciais aumentada em 40%.",
+                        isInteractive: false
+                    }
+                ];
+
+                track.innerHTML = "";
+                dotsContainer.innerHTML = "";
+
+                const count = casesData.length;
+                const cards = [];
+                const dots = [];
+                let currentIndex = 0;
+
+                casesData.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'cf-card';
+                    card.innerHTML = `
+                        <div class="cf-card-img-container">
+                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                        </div>
+                        <div class="cf-card-body">
+                            <div>
+                                <span class="cf-card-niche">${item.niche}</span>
+                                <h3 class="cf-card-title">${item.title}</h3>
+                                <p class="cf-card-desc">${item.shortDesc}</p>
+                            </div>
+                            <button class="btn-case" data-index="${index}" type="button">ENTENDER O CASO</button>
+                        </div>
+                    `;
+                    
+                    const caseBtn = card.querySelector('.btn-case');
+                    caseBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openModal(index);
+                    });
+
+                    card.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCoverflow();
+                    });
+
+                    track.appendChild(card);
+                    cards.push(card);
+
+                    const dot = document.createElement('button');
+                    dot.className = 'cf-dot';
+                    dot.type = 'button';
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCoverflow();
+                    });
+                    dotsContainer.appendChild(dot);
+                    dots.push(dot);
+                });
+
+                function updateCoverflow() {
+                    cards.forEach((card, i) => {
+                        let offset = (i - currentIndex + count) % count;
+                        if (offset > count / 2) offset -= count;
+
+                        let transform = '';
+                        let opacity = 1;
+                        let zIndex = 10;
+                        let filter = 'none';
+
+                        if (offset === 0) {
+                            transform = 'translateX(0px) scale(1) rotateY(0deg)';
+                            opacity = 1;
+                            zIndex = 30;
+                            filter = 'brightness(1)';
+                            card.style.pointerEvents = 'auto';
+                        } else if (offset === 1 || offset === -(count - 1)) {
+                            transform = 'translateX(320px) scale(0.8) rotateY(-25deg)';
+                            opacity = 0.4;
+                            zIndex = 20;
+                            filter = 'brightness(0.5) blur(2px)';
+                            card.style.pointerEvents = 'auto';
+                        } else {
+                            transform = 'translateX(-320px) scale(0.8) rotateY(25deg)';
+                            opacity = 0.4;
+                            zIndex = 20;
+                            filter = 'brightness(0.5) blur(2px)';
+                            card.style.pointerEvents = 'auto';
+                        }
+
+                        card.style.transform = transform;
+                        card.style.opacity = opacity;
+                        card.style.zIndex = zIndex;
+                        card.style.filter = filter;
+                    });
+
+                    dots.forEach((dot, idx) => {
+                        if (idx === currentIndex) dot.classList.add('active');
+                        else dot.classList.remove('active');
+                    });
+                }
+
+                function openModal(index) {
+                    const data = casesData[index];
+                    document.getElementById('modal-img').src = data.image;
+                    document.getElementById('modal-niche').textContent = data.niche;
+                    document.getElementById('modal-title').textContent = data.title;
+                    document.getElementById('modal-problem').innerHTML = data.problem;
+                    document.getElementById('modal-solution').innerHTML = data.solution;
+                    document.getElementById('modal-result').innerHTML = data.result;
+                    
+                    const interactiveDemo = document.getElementById('modal-interactive-demo');
+                    if (data.isInteractive) {
+                        interactiveDemo.style.display = 'block';
+                        resetModalForm();
+                    } else {
+                        interactiveDemo.style.display = 'none';
+                    }
+
+                    document.getElementById('case-modal').classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                const modal = document.getElementById('case-modal');
+                const modalClose = document.getElementById('modal-close');
+
+                function closeModalFn() {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+
+                if (modalClose) modalClose.addEventListener('click', closeModalFn);
+                if (modal) {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) closeModalFn();
+                    });
+                }
+
+                if (btnNext) {
+                    btnNext.onclick = (e) => {
+                        e.preventDefault();
+                        currentIndex = (currentIndex + 1) % count;
+                        updateCoverflow();
+                    };
+                }
+
+                if (btnPrev) {
+                    btnPrev.onclick = (e) => {
+                        e.preventDefault();
+                        currentIndex = (currentIndex - 1 + count) % count;
+                        updateCoverflow();
+                    };
+                }
+
+                updateCoverflow();
+            }
+        }
+
+        iniciarTudo();
+        window.addEventListener('load', iniciarTudo);
+        setTimeout(iniciarTudo, 300);
+        setTimeout(iniciarTudo, 1000);
+    })();
+
+    // --- SCRIPT DO FAQ ---
+    document.querySelectorAll(".faq-question").forEach(button => {
+        button.addEventListener("click", () => {
+            const item = button.parentElement;
+            item.classList.toggle("active");
+            const symbol = button.querySelector("span");
+            symbol.textContent = item.classList.contains("active") ? "−" : "+";
+        });
+    });
+
+    // --- SCRIPT DO WIDGET INTERATIVO DENTRO DO MODAL ---
+    let modalDadosEndereco = {};
+
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.id === 'm-cep') {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 5) value = value.substring(0, 5) + '-' + value.substring(5, 8);
+            e.target.value = value;
+            if (value.replace(/\D/g, '').length === 8) buscarModalCEP(value.replace(/\D/g, ''));
+        }
+        if (e.target && e.target.id === 'm-whatsapp') {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.substring(0, 11);
+            if (value.length > 6) { value = `(${value.substring(0,2)}) ${value.substring(2,7)}-${value.substring(7)}`; } 
+            else if (value.length > 2) { value = `(${value.substring(0,2)}) ${value.substring(2)}`; }
+            e.target.value = value;
+        }
+    });
+
+    async function buscarModalCEP(cep) {
+        const preview = document.getElementById('m-endereco-preview');
+        if(preview) preview.value = 'Buscando endereço...';
+        try {
+            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const data = await response.json();
+            if (data.erro) { if(preview) preview.value = 'CEP não encontrado.'; return; }
+            modalDadosEndereco = data;
+            if(preview) preview.value = `${data.logradouro ? data.logradouro + ', ' : ''}${data.bairro} - ${data.localidade}/${data.uf}`;
+        } catch (error) {
+            if(preview) preview.value = 'Erro ao buscar CEP.';
+        }
+    }
+
+    document.addEventListener('submit', function(e) {
+        if (e.target && e.target.id === 'modal-coverage-form') {
+            e.preventDefault();
+            const formScreenM = document.getElementById('modal-form-screen');
+            const loaderScreenM = document.getElementById('modal-loader-screen');
+            const resultSuccessM = document.getElementById('modal-result-success');
+            const loaderTextM = document.getElementById('modal-loader-text');
+
+            formScreenM.style.display = 'none';
+            loaderScreenM.style.display = 'flex';
+
+            const etapas = ['Mapeando portas OLT...', 'Verificando malha de fibra...', 'Calculando viabilidade de rede...'];
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < etapas.length) { loaderTextM.textContent = etapas[index]; index++; } 
+                else { 
+                    clearInterval(interval); 
+                    loaderScreenM.style.display = 'none';
+                    const num = document.getElementById('m-numero').value;
+                    const endFormat = `<strong>Endereço:</strong> ${modalDadosEndereco.logradouro || 'Rua informada'}, Nº ${num}<br><strong>Bairro:</strong> ${modalDadosEndereco.bairro || 'N/A'}<br><strong>Cidade/UF:</strong> ${modalDadosEndereco.localidade || 'N/A'} - ${modalDadosEndereco.uf || ''}`;
+                    document.getElementById('m-address-confirmed-box').innerHTML = endFormat;
+                    resultSuccessM.style.display = 'block';
+                }
+            }, 800);
+        }
+    });
+
+    function resetModalForm() {
+        document.getElementById('modal-result-success').style.display = 'none';
+        document.getElementById('modal-loader-screen').style.display = 'none';
+        document.getElementById('modal-form-screen').style.display = 'block';
+        document.getElementById('modal-coverage-form').reset();
+        const preview = document.getElementById('m-endereco-preview');
+        if(preview) preview.value = '';
+    }
+    </script>
+</body>
+</html>
