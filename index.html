@@ -156,6 +156,14 @@
     .cf-card-title { font-size: 1.4rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 6px; }
     .cf-card-desc { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 14px; line-height: 1.3; }
 
+    /* Botões do Card */
+    .card-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
     .btn-case {
         display: inline-flex;
         align-items: center;
@@ -176,6 +184,30 @@
         box-shadow: 0 4px 12px rgba(255, 184, 0, 0.2);
     }
     .btn-case:hover { background-color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 184, 0, 0.4); }
+
+    .btn-access-site {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        color: var(--accent-yellow);
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.75rem;
+        padding: 0.6rem 1.5rem;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 184, 0, 0.35);
+        cursor: pointer;
+        width: 100%;
+    }
+    .btn-access-site:hover {
+        background-color: var(--accent-yellow);
+        color: #000;
+        border-color: var(--accent-yellow);
+    }
 
     .cf-arrow {
         position: absolute;
@@ -277,7 +309,7 @@
     }
 
     /* ==========================================
-       6. ESCOPO / PROTEÇÃO (ADICIONADO)
+       6. ESCOPO / PROTEÇÃO
        ========================================== */
     .scope {
         background: #0b0b0d;
@@ -329,10 +361,33 @@
     }
 
     /* ==========================================
-       7. FAQ (ADICIONADO)
+       7. COMO EU PENSO
+       ========================================== */
+    .methodology { padding: 120px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; background: #0a0a0c; }
+    .doctrine-header-wrapper { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; }
+    .sparkle-line-container { position: relative; width: 100%; max-width: 500px; height: 20px; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
+    .sparkle-grad-1 { position: absolute; inset-x: 0; top: 0; height: 2px; width: 100%; background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent); filter: blur(2px); }
+    .sparkle-grad-2 { position: absolute; inset-x: 0; top: 0; height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent); }
+    .sparkle-grad-3 { position: absolute; inset-x: 40px; top: 0; height: 4px; width: calc(100% - 80px); background: linear-gradient(90deg, transparent, var(--accent-orange), transparent); filter: blur(3px); }
+    .sparkle-grad-4 { position: absolute; inset-x: 40px; top: 0; height: 1px; width: calc(100% - 80px); background: linear-gradient(90deg, transparent, var(--accent-orange), transparent); }
+    .doctrine-title { font-size: 2.8rem; font-weight: 900; text-transform: uppercase; text-align: center; color: #FFFFFF !important; letter-spacing: -0.02em; margin: 0; }
+    
+    .method-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+    .method-card { background: rgba(15, 15, 17, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2.5rem; border-radius: 16px; transition: transform 0.3s ease, border-color 0.3s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .method-card:hover { border-color: var(--accent-yellow); transform: translateY(-5px); }
+    .method-number { font-size: 3rem; font-weight: 900; line-height: 0.8; margin-bottom: 1.2rem; display: inline-block; color: var(--accent-yellow); }
+    .method-card h3 { font-size: 1.35rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: #fff; }
+    .method-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+    .method-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.2rem; }
+    .method-tag { background: rgba(255, 184, 0, 0.08); border: 1px solid rgba(255, 184, 0, 0.2); color: var(--accent-yellow); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ==========================================
+       8. PERGUNTAS FREQUENTES / FAQ
        ========================================== */
     .faq-section {
         padding: 120px 0;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        background: #0a0a0c;
     }
     .faq {
         max-width: 800px;
@@ -369,27 +424,6 @@
     .faq-item.active .faq-question {
         color: var(--accent-yellow);
     }
-
-    /* ==========================================
-       8. COMO EU PENSO
-       ========================================== */
-    .methodology { padding: 120px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; background: #0a0a0c; }
-    .doctrine-header-wrapper { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; }
-    .sparkle-line-container { position: relative; width: 100%; max-width: 500px; height: 20px; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
-    .sparkle-grad-1 { position: absolute; inset-x: 0; top: 0; height: 2px; width: 100%; background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent); filter: blur(2px); }
-    .sparkle-grad-2 { position: absolute; inset-x: 0; top: 0; height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent); }
-    .sparkle-grad-3 { position: absolute; inset-x: 40px; top: 0; height: 4px; width: calc(100% - 80px); background: linear-gradient(90deg, transparent, var(--accent-orange), transparent); filter: blur(3px); }
-    .sparkle-grad-4 { position: absolute; inset-x: 40px; top: 0; height: 1px; width: calc(100% - 80px); background: linear-gradient(90deg, transparent, var(--accent-orange), transparent); }
-    .doctrine-title { font-size: 2.8rem; font-weight: 900; text-transform: uppercase; text-align: center; color: #FFFFFF !important; letter-spacing: -0.02em; margin: 0; }
-    
-    .method-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
-    .method-card { background: rgba(15, 15, 17, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2.5rem; border-radius: 16px; transition: transform 0.3s ease, border-color 0.3s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-    .method-card:hover { border-color: var(--accent-yellow); transform: translateY(-5px); }
-    .method-number { font-size: 3rem; font-weight: 900; line-height: 0.8; margin-bottom: 1.2rem; display: inline-block; color: var(--accent-yellow); }
-    .method-card h3 { font-size: 1.35rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: #fff; }
-    .method-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
-    .method-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.2rem; }
-    .method-tag { background: rgba(255, 184, 0, 0.08); border: 1px solid rgba(255, 184, 0, 0.2); color: var(--accent-yellow); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* ==========================================
        9. MODAL DE DETALHES
@@ -583,7 +617,7 @@
             </div>
         </section>
 
-        <!-- ESCOPO DO PROJETO (ADICIONADO) -->
+        <!-- ESCOPO DO PROJETO -->
         <section class="section scope">
             <div class="container">
                 <div class="section-header">
@@ -628,7 +662,52 @@
             </div>
         </section>
 
-        <!-- PERGUNTAS FREQUENTES / FAQ (ADICIONADO) -->
+        <!-- COMO EU PENSO -->
+        <section class="methodology">
+            <div class="container doctrine-header-wrapper">
+                <h2 class="doctrine-title">Como Eu Penso</h2>
+                <div class="sparkle-line-container">
+                    <div class="sparkle-grad-1"></div>
+                    <div class="sparkle-grad-2"></div>
+                    <div class="sparkle-grad-3"></div>
+                    <div class="sparkle-grad-4"></div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="method-grid">
+                    <div class="method-card">
+                        <span class="method-number">01</span>
+                        <h3>Cada Negócio É Diferente</h3>
+                        <p>Seu negócio não é igual ao do concorrente. Por isso, antes de criar qualquer página, eu entendo o que sua empresa faz, quem são seus clientes e o que você precisa alcançar. O site é construído a partir dessas necessidades — não de um modelo genérico.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="method-number">02</span>
+                        <h3>Design com Propósito</h3>
+                        <p>Não faço apenas um site bonito. Cada seção, botão e informação tem uma função clara. Eu penso na jornada do visitante para tornar mais fácil encontrar o que ele procura e entrar em contato direto com sua empresa.</p>
+                    </div>
+                    <div class="method-card">
+                        <span class="method-number">03</span>
+                        <h3>Funcionalidades que Fazem Sentido</h3>
+                        <p>Seu site pode fazer mais do que apenas apresentar sua empresa. Quando uma funcionalidade melhora a experiência do cliente e facilita o fechamento, eu a desenvolvo sob medida para o seu ecossistema.</p>
+                        <div class="method-tags">
+                            <span class="method-tag">Teste de Cobertura</span>
+                            <span class="method-tag">Agendamento</span>
+                            <span class="method-tag">Simuladores</span>
+                            <span class="method-tag">Orçamentos</span>
+                            <span class="method-tag">Integrações</span>
+                        </div>
+                    </div>
+                    <div class="method-card">
+                        <span class="method-number">04</span>
+                        <h3>Feito para Evoluir</h3>
+                        <p>O projeto não termina quando vai ao ar. Eu crio uma estrutura preparada para receber melhorias conforme sua empresa cresce. Novas páginas, ferramentas e integrações podem ser adicionadas perfeitamente quando fizerem sentido.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PERGUNTAS FREQUENTES / FAQ -->
         <section class="section faq-section">
             <div class="container">
                 <div class="section-header">
@@ -779,51 +858,6 @@
             </div>
         </div>
 
-        <!-- COMO EU PENSO -->
-        <section class="methodology">
-            <div class="container doctrine-header-wrapper">
-                <h2 class="doctrine-title">Como Eu Penso</h2>
-                <div class="sparkle-line-container">
-                    <div class="sparkle-grad-1"></div>
-                    <div class="sparkle-grad-2"></div>
-                    <div class="sparkle-grad-3"></div>
-                    <div class="sparkle-grad-4"></div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="method-grid">
-                    <div class="method-card">
-                        <span class="method-number">01</span>
-                        <h3>Cada Negócio É Diferente</h3>
-                        <p>Seu negócio não é igual ao do concorrente. Por isso, antes de criar qualquer página, eu entendo o que sua empresa faz, quem são seus clientes e o que você precisa alcançar. O site é construído a partir dessas necessidades — não de um modelo genérico.</p>
-                    </div>
-                    <div class="method-card">
-                        <span class="method-number">02</span>
-                        <h3>Design com Propósito</h3>
-                        <p>Não faço apenas um site bonito. Cada seção, botão e informação tem uma função clara. Eu penso na jornada do visitante para tornar mais fácil encontrar o que ele procura e entrar em contato direto com sua empresa.</p>
-                    </div>
-                    <div class="method-card">
-                        <span class="method-number">03</span>
-                        <h3>Funcionalidades que Fazem Sentido</h3>
-                        <p>Seu site pode fazer mais do que apenas apresentar sua empresa. Quando uma funcionalidade melhora a experiência do cliente e facilita o fechamento, eu a desenvolvo sob medida para o seu ecossistema.</p>
-                        <div class="method-tags">
-                            <span class="method-tag">Teste de Cobertura</span>
-                            <span class="method-tag">Agendamento</span>
-                            <span class="method-tag">Simuladores</span>
-                            <span class="method-tag">Orçamentos</span>
-                            <span class="method-tag">Integrações</span>
-                        </div>
-                    </div>
-                    <div class="method-card">
-                        <span class="method-number">04</span>
-                        <h3>Feito para Evoluir</h3>
-                        <p>O projeto não termina quando vai ao ar. Eu crio uma estrutura preparada para receber melhorias conforme sua empresa cresce. Novas páginas, ferramentas e integrações podem ser adicionadas perfeitamente quando fizerem sentido.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- CTA FINAL -->
         <section id="cta-final" class="final-cta container">
             <div class="cta-box">
@@ -882,17 +916,19 @@
                         problem: "O provedor investe pesado em <strong>tráfego pago</strong> para atrair novos assinantes na região. Porém, o cliente entra no site, precisa digitar o endereço manualmente ou chamar no WhatsApp apenas para descobrir se a fibra passa na rua dele. Essa fricção gera <strong>abandono em massa</strong>.",
                         solution: "Desenvolvimento de um <strong>Módulo de Teste de Cobertura Inteligente</strong> acoplado a uma vitrine estática de altíssima velocidade. O visitante digita o CEP e número, cruza dados em milissegundos, exibe os planos disponíveis ou captura a geolocalização para expansão futura via <strong>Notion e n8n</strong>.",
                         result: "Zera o tempo de atendimento desperdiçado com viabilidades manuais. O lead chega para o comercial 100% qualificado e com a cobertura garantida.",
-                        isInteractive: true
+                        isInteractive: true,
+                        siteUrl: "https://v5fibra.com.br/"
                     },
                     {
-                        niche: "SAÚDE & ESTÉTICA",
-                        title: "CLÍNICA DE ALTO PADRÃO",
-                        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80",
-                        shortDesc: "Funil de conversão ultrarrápido com agendamento direto e triagem automática no WhatsApp.",
-                        problem: "Anúncios no Instagram rodando para um site WordPress que demorava 6 segundos para abrir no 4G. Pacientes de alto poder aquisitivo abandonavam a página pela <strong>tela em branco</strong>.",
-                        solution: "Bypass de banco de dados SQL. Criação de uma <strong>vitrine estática imune a quedas</strong>. O agendamento foi integrado com webhooks, disparando o fluxo de triagem diretamente para a recepção sem depender de plugins pesados.",
-                        result: "Zero abandono por latência mobile. O mesmo orçamento gerou o triplo de agendamentos validados no WhatsApp.",
-                        isInteractive: false
+                        niche: "FITNESS & PERFORMANCE",
+                        title: "ACADEMIA DE ALTO PADRÃO",
+                        image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+                        shortDesc: "Funil de conversão ultrarrápido com apresentação de planos e matrícula simplificada.",
+                        problem: "Potenciais alunos acessavam o site da academia pelo celular e encontravam páginas pesadas que demoravam para carregar. A dificuldade em ver os horários e planos rapidamente fazia o lead desistir e procurar o concorrente.",
+                        solution: "Desenvolvimento de uma vitrine digital de alta performance com carregamento instantâneo. Estrutura focada em destacar a musculatura da marca, exibir planos claramente e direcionar o aluno para o fechamento sem fricção.",
+                        result: "Eliminação total de desistências por lentidão mobile. Aumento expressivo nas conversões diretas para os planos da academia.",
+                        isInteractive: false,
+                        siteUrl: "#"
                     },
                     {
                         niche: "MERCADO IMOBILIÁRIO",
@@ -902,7 +938,8 @@
                         problem: "Leads interessados em imóveis de alto padrão preenchiam o formulário, mas os dados se perdiam no email. Até o corretor ligar, o cliente já <strong>negociava com a concorrência</strong>.",
                         solution: "Página de conversão de velocidade extrema acoplada a um <strong>nó lógico inteligente</strong>. O sistema capta o lead, qualifica a renda e distribui automaticamente para o celular do corretor disponível no momento exato.",
                         result: "Velocidade de contato despencou de 4h para 10 segundos. Taxa de conversão em visitas presenciais aumentada em 40%.",
-                        isInteractive: false
+                        isInteractive: false,
+                        siteUrl: "#"
                     }
                 ];
 
@@ -917,6 +954,9 @@
                 casesData.forEach((item, index) => {
                     const card = document.createElement('div');
                     card.className = 'cf-card';
+                    
+                    const secondaryButtonText = (index === 0) ? "Acessar Site" : "Ver Modelo";
+
                     card.innerHTML = `
                         <div class="cf-card-img-container">
                             <img src="${item.image}" alt="${item.title}" loading="lazy">
@@ -927,7 +967,10 @@
                                 <h3 class="cf-card-title">${item.title}</h3>
                                 <p class="cf-card-desc">${item.shortDesc}</p>
                             </div>
-                            <button class="btn-case" data-index="${index}" type="button">ENTENDER O CASO</button>
+                            <div class="card-actions">
+                                <button class="btn-case" data-index="${index}" type="button">ENTENDER O CASO</button>
+                                <a href="${item.siteUrl}" class="btn-access-site" target="_blank" rel="noopener">${secondaryButtonText}</a>
+                            </div>
                         </div>
                     `;
                     
@@ -1111,30 +1154,37 @@
             const resultSuccessM = document.getElementById('modal-result-success');
             const loaderTextM = document.getElementById('modal-loader-text');
 
-            formScreenM.style.display = 'none';
-            loaderScreenM.style.display = 'flex';
+            if(formScreenM) formScreenM.style.display = 'none';
+            if(loaderScreenM) loaderScreenM.style.display = 'flex';
 
             const etapas = ['Mapeando portas OLT...', 'Verificando malha de fibra...', 'Calculando viabilidade de rede...'];
             let index = 0;
             const interval = setInterval(() => {
-                if (index < etapas.length) { loaderTextM.textContent = etapas[index]; index++; } 
+                if (index < etapas.length) { if(loaderTextM) loaderTextM.textContent = etapas[index]; index++; } 
                 else { 
                     clearInterval(interval); 
-                    loaderScreenM.style.display = 'none';
-                    const num = document.getElementById('m-numero').value;
+                    if(loaderScreenM) loaderScreenM.style.display = 'none';
+                    const numInput = document.getElementById('m-numero');
+                    const num = numInput ? numInput.value : '';
                     const endFormat = `<strong>Endereço:</strong> ${modalDadosEndereco.logradouro || 'Rua informada'}, Nº ${num}<br><strong>Bairro:</strong> ${modalDadosEndereco.bairro || 'N/A'}<br><strong>Cidade/UF:</strong> ${modalDadosEndereco.localidade || 'N/A'} - ${modalDadosEndereco.uf || ''}`;
-                    document.getElementById('m-address-confirmed-box').innerHTML = endFormat;
-                    resultSuccessM.style.display = 'block';
+                    const confirmedBox = document.getElementById('m-address-confirmed-box');
+                    if(confirmedBox) confirmedBox.innerHTML = endFormat;
+                    if(resultSuccessM) resultSuccessM.style.display = 'block';
                 }
             }, 800);
         }
     });
 
     function resetModalForm() {
-        document.getElementById('modal-result-success').style.display = 'none';
-        document.getElementById('modal-loader-screen').style.display = 'none';
-        document.getElementById('modal-form-screen').style.display = 'block';
-        document.getElementById('modal-coverage-form').reset();
+        const resBox = document.getElementById('modal-result-success');
+        const loadScrn = document.getElementById('modal-loader-screen');
+        const formScrn = document.getElementById('modal-form-screen');
+        const covForm = document.getElementById('modal-coverage-form');
+        
+        if(resBox) resBox.style.display = 'none';
+        if(loadScrn) loadScrn.style.display = 'none';
+        if(formScrn) formScrn.style.display = 'block';
+        if(covForm) covForm.reset();
         const preview = document.getElementById('m-endereco-preview');
         if(preview) preview.value = '';
     }
