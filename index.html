@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vannut | Engenharia de Conversão</title>
+<title>Monttanha | Engenharia de Conversão</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,8 +11,8 @@
 
 <style>
     /* ==========================================
-       1. FUNDAÇÃO E VARIÁVEIS
-       ========================================== */
+        1. FUNDAÇÃO E VARIÁVEIS
+        ========================================== */
     :root {
         --font-main: 'Montserrat', sans-serif;
         --font-mono: 'JetBrains Mono', monospace;
@@ -31,8 +31,8 @@
     .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
     /* ==========================================
-       2. HERO PORTFOLIO & ROTATIVE TEXT
-       ========================================== */
+        2. HERO PORTFOLIO & ROTATIVE TEXT
+        ========================================== */
     .hero-portfolio { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: var(--bg-dark); background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; background-position: center center; overflow: hidden; padding: 0 2rem; }
     .hero-portfolio::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, var(--bg-dark) 0%, transparent 100%); z-index: 0; }
     
@@ -64,16 +64,16 @@
     .rotate-word.in { transform: translateY(100%); opacity: 0; transition: none; }
 
     /* ==========================================
-       3. PROVA SOCIAL (MÉTRICAS)
-       ========================================== */
+        3. PROVA SOCIAL (MÉTRICAS)
+        ========================================== */
     .social-proof { padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: linear-gradient(90deg, rgba(255, 184, 0, 0.03) 0%, transparent 100%); }
     .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
     .metric-number { font-size: 3.5rem; font-weight: 900; color: var(--accent-yellow); line-height: 1; margin-bottom: 0.5rem; }
     .metric-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
     /* ==========================================
-       4. COVERFLOW 3D DE CASOS
-       ========================================== */
+        4. COVERFLOW 3D DE CASOS
+        ========================================== */
     .dossier-section { padding: 100px 0 80px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; background: radial-gradient(circle at center, #121216 0%, #0a0a0c 100%); }
     .section-title.white-title { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 900; text-transform: uppercase; text-align: center; color: #FFFFFF; }
     .showcase-hint { text-align: center; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; max-width: 750px; margin: 0 auto 3.5rem auto; }
@@ -244,8 +244,8 @@
     .cf-dot.active { width: 32px; background: var(--accent-yellow); box-shadow: 0 0 12px rgba(255,184,0,0.6); }
 
     /* ==========================================
-       5. O QUE PODE EXISTIR
-       ========================================== */
+        5. O QUE PODE EXISTIR
+        ========================================== */
     .features {
         background: #0b0b0d;
         border-top: 1px solid var(--border-color);
@@ -309,8 +309,8 @@
     }
 
     /* ==========================================
-       6. ESCOPO / PROTEÇÃO
-       ========================================== */
+        6. ESCOPO / PROTEÇÃO
+        ========================================== */
     .scope {
         background: #0b0b0d;
         border-top: 1px solid var(--border-color);
@@ -361,8 +361,8 @@
     }
 
     /* ==========================================
-       7. COMO EU PENSO
-       ========================================== */
+        7. COMO EU PENSO
+        ========================================== */
     .methodology { padding: 120px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; background: #0a0a0c; }
     .doctrine-header-wrapper { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; }
     .sparkle-line-container { position: relative; width: 100%; max-width: 500px; height: 20px; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
@@ -382,8 +382,8 @@
     .method-tag { background: rgba(255, 184, 0, 0.08); border: 1px solid rgba(255, 184, 0, 0.2); color: var(--accent-yellow); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* ==========================================
-       8. PERGUNTAS FREQUENTES / FAQ
-       ========================================== */
+        8. PERGUNTAS FREQUENTES / FAQ
+        ========================================== */
     .faq-section {
         padding: 120px 0;
         border-top: 1px solid rgba(255,255,255,0.05);
@@ -426,8 +426,8 @@
     }
 
     /* ==========================================
-       9. MODAL DE DETALHES
-       ========================================== */
+        9. MODAL DE DETALHES
+        ========================================== */
     .modal-overlay { position: fixed; inset: 0; background: rgba(5,5,7,0.88); backdrop-filter: blur(10px); z-index: 99999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px; }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
     .modal-box { background: linear-gradient(145deg, #16161a 0%, #0d0d10 100%); border: 1px solid rgba(255, 184, 0, 0.35); border-radius: 24px; width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 40px 90px rgba(0,0,0,0.95); transform: translateY(20px); transition: transform 0.3s ease; }
@@ -469,8 +469,8 @@
     .result-screen-modal { display: none; }
 
     /* ==========================================
-       10. CTA FINAL & FOOTER
-       ========================================== */
+        10. CTA FINAL & FOOTER
+        ========================================== */
     .final-cta { padding: 120px 0; text-align: center; }
     .cta-box { background: linear-gradient(145deg, #131316 0%, #0a0a0c 100%); border: 1px solid rgba(255, 94, 0, 0.2); padding: 5rem 2rem; border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
     .cta-box h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; margin-bottom: 1.5rem; line-height: 1.1; text-transform: uppercase; color: var(--accent-yellow); }
@@ -736,7 +736,7 @@
                             <span>+</span>
                         </button>
                         <div class="faq-answer">
-                            Não. Uma funcionalidade só entra quando existe uma razão para ela estar ali. Um site simples e bem estruturado pode ser muito mais eficiente do que um site cheio de recursos que ninguém utiliza.
+                            Não. Uma funcionalidade só entra quando existe uma razão para ela estar ali. Uma estrutura simples e bem estruturada pode ser muito mais eficiente do que um site cheio de recursos que ninguém utiliza.
                         </div>
                     </div>
 
@@ -803,7 +803,7 @@
                             <p class="modal-text" style="margin-bottom: 1rem;">Experimente abaixo a ferramenta real integrada ao sistema:</p>
                             
                             <div class="v5-widget-inner">
-                                <div class="status-chip"><span class="pulse-dot"></span> Verificação de Malha V5</div>
+                                <div class="status-chip"><span class="pulse-dot"></span> Verificação de Malha Monttanha</div>
                                 
                                 <div id="modal-form-screen">
                                     <form id="modal-coverage-form">
@@ -870,13 +870,13 @@
         <!-- FOOTER -->
         <footer>
             <div class="container">
-                &copy; 2026 Vannut Tech. Operações de Alta Performance.
+                &copy; 2026 Monttanha Tech. Operações de Alta Performance.
             </div>
         </footer>
     </div>
 
     <script>
-    (function initVannutPortfolio() {
+    (function initMonttanhaPortfolio() {
         function iniciarTudo() {
             // --- 1. TEXTO ROTATIVO DO HERO ---
             const words = ['estancar a perda de leads.', 'zerar o custo da latência.', 'converter leads.', 'dominar o mercado.'];
